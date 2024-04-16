@@ -1,0 +1,32 @@
+header{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--header);
+}
+
+.Logo{
+    font-size: 28px;
+    color: var(--white);
+}
+
+.menu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.link{
+    color: var(--white);
+}
+
+.header-login{
+    background: var(--white);
+}
+
+.header-login span{
+    color: var(--header);
+}
