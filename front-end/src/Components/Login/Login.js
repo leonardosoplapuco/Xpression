@@ -4,7 +4,7 @@ function Login() {
     return (
         <div className="block-container">
             <form className="login">
-                <h2>Xpression</h2>
+                <h2>Xpression - Leo</h2>
                 <div className="login-section">
                     <label htmlFor="Username" className="login-section_icon">
                         <span class="material-symbols-outlined">alternate_email</span>
