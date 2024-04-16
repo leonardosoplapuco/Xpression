@@ -2,7 +2,7 @@ import './Footer.css'
 
 function Footer(){
     return (
-        <p>Acá copias lo tuyo</p>
+        <p>Diego</p>
     );
 }
 
