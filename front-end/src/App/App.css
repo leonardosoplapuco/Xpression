@@ -37,3 +37,9 @@ button, .button{
     padding: 0 20px;
     border-radius: 50px;
 }
+
+.block-container{
+    width: 100%;
+    display: flex;
+    padding: 20px;
+}
