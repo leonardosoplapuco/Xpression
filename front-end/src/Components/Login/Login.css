@@ -1,0 +1,50 @@
+.login{
+    margin: auto;
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.login-section{
+    width: 100%;
+    display: flex;
+    border: 2px solid var(--header);
+    overflow: hidden;
+    border-radius: 50px;
+}
+
+.login-section_icon{
+    width: 60px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--header);
+}
+
+.login-section_input{
+    width: calc(100% - 40px);
+    border: 0;
+    outline: 0;
+}
+
+.login-section_input::placeholder{
+    color: var(--header);
+}
+
+.submit{
+    width: 100%;
+    height: 45px;
+    background: var(--header);
+    color: var(--white);
+    border-radius: 45px;
+}
+
+.login-signUp_link{
+    background: var(--white);
+    color: var(--header);
+    border: 2px solid var(--header);
+}
