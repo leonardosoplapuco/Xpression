@@ -4,7 +4,15 @@ function ServersTable() {
     return(
         <div className="block-container">
             <div className="ServersTable">
-                Bryan
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
     );
