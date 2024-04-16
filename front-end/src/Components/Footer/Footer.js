@@ -2,7 +2,8 @@ import './Footer.css'
 
 function Footer(){
     return (
-        <p>Diego</p>
+        <p>Diego 123456</p>
+        
     );
 }
 
