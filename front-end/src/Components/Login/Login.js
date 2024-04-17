@@ -8,23 +8,23 @@ function Login() {
                 <h2>Xpression</h2>
 
                 <div className="login-section">
-                    <label htmlFor="Username" className="login-section_icon">
+                    <label htmlFor="XMPPAddressLogin" className="login-section_icon">
                         <span class="material-symbols-outlined">alternate_email</span>
                     </label>
-                    <input className="login-section_input" id="Username" placeholder="XMPP address"></input>
+                    <input type='email' className="login-section_input" id="XMPPAddressLogin" placeholder="XMPP address"></input>
                 </div>
                 <div className="login-section">
-                    <label htmlFor="Password" className="login-section_icon">
+                    <label htmlFor="PasswordLogin" className="login-section_icon">
                         <span class="material-symbols-outlined">lock</span>
                     </label>
-                    <input className="login-section_input" id="Password" placeholder="Password"></input>
+                    <input type='password' className="login-section_input" id="PasswordLogin" placeholder="Password"></input>
                 </div>
 
                 <button type="submit button-link" className="submit button-link" id="Login-submit">Sign In</button>
 
-                <a href="/" className="button-link login-signUp_link">
+                <button className="button-link login-signUp_link">
                     <span className='button-link_text'>Create an account</span>
-                </a>
+                </button>
             </form>
         </div>
     );
