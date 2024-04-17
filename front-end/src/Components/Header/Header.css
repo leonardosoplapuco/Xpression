@@ -1,18 +1,21 @@
-header{
+.header{
     width: 100%;
-    padding: 20px;
+    height: 90px;
+    padding: 0 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background: var(--header);
+    margin-bottom: 20px;
 }
 
 .Logo{
-    font-size: 28px;
+    font-size: 30px;
     color: var(--white);
 }
 
 .menu{
+    width: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -20,7 +23,31 @@ header{
 }
 
 .link{
+    width: auto;
+    height: 50px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--white);
+    position: relative;
+}
+
+.link::before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    translate: -50% 0;
+    width: 0;
+    height: 3px;
+    border-radius: 5px;
+    background: var(--white);
+    transition: all 250ms linear;
+}
+
+.link:hover::before{
+    width: 100%;
 }
 
 .header-login{
@@ -29,4 +56,10 @@ header{
 
 .header-login span{
     color: var(--header);
+}
+
+@media screen and (max-width:600px){
+    .menu{
+        display: none;
+    }
 }

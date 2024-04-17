@@ -11,9 +11,23 @@
     font-weight: 600;
 }
 
+html{
+    scroll-behavior: smooth;
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}
+
 :root{
     --header: #00487c;
+
+    --color-one: #00487c;
+    --color-two:#0e0e52;
     --white:#ffffff;
+    --black:#222222;
+
+    --transition-250ms-linear: all 250ms linear;
 }
 
 h1, h2, h3, h4, h5, h6{
@@ -29,13 +43,17 @@ button, .button{
 
 .button-link{
     width: auto;
-    height: 45px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     padding: 0 20px;
-    border-radius: 50px;
+    transition: var(--transition-250ms-linear);
+}
+
+.button-link:hover{
+    box-shadow: 5px 5px 0px var(--black);
 }
 
 .block-container{
