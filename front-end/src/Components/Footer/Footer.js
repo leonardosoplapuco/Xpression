@@ -3,7 +3,6 @@ import './Footer.css';
 
 function Footer() {
     return (
-<<<<<<< HEAD
         <footer className="footer">
             <nav className="footer-menu">
                 <ul>
@@ -17,9 +16,6 @@ function Footer() {
                 <p>&copy; 2024 Xpression. Todos los derechos reservados.</p>
             </div>
         </footer>
-=======
-        <p>Diego 123456</p>
->>>>>>> f024aa6bd925016bc94fa8ccd1c686880cbb2105
     );
 }
 
