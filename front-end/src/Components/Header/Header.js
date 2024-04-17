@@ -13,7 +13,7 @@ function Header() {
                 <li><h2><a className="link link-4" href="#">Source code</a></h2></li>
             </nav>
 
-            <a className="header-login button-link" href="#">
+            <a className="header-login button-link" href="#Login">
                 <span className="button-link_text">Sign In</span>
                 <span class="material-symbols-outlined button-link_icon">person</span>
             </a>
