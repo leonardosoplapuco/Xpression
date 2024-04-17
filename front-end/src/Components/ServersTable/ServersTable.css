@@ -1,5 +1,24 @@
-.ServersTable{
+.ServersTable {
+    position: relative;
     margin: auto;
-    width: 100%;
-    max-width: 1200px;
+    width: 50%;
+    max-width: 800px;
+    background-color: #E8F8F6;
+    border-radius: 5%;
+}
+
+.ServersTable th > h2 {
+    color: blue;
+    font-weight: bolder;
+}
+
+.ServersTable td {
+    text-align: center;
+    width: 200px;
+}
+
+.ServersTable tr {
+    height: 50px;
+    top: 10px;
+    bottom: 10px;
 }
