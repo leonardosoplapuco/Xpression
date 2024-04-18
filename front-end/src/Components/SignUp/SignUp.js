@@ -12,33 +12,39 @@ function SignUp() {
                     <label htmlFor="Username" className="login-section_icon">
                         <span class="material-symbols-outlined">person</span>
                     </label>
-                    <input className="login-section_input" id="Username" placeholder="Username"></input>
+                    <input type="text" className="login-section_input" id="Username" placeholder="Username"></input>
                 </div>
                 <div className="login-section">
                     <label htmlFor="XMPPAdrressSignUP" className="login-section_icon">
                         <span class="material-symbols-outlined">alternate_email</span>
                     </label>
-                    <input className="login-section_input" id="XMPPAdrressSignUP" placeholder="username@bryanyep.com"></input>
+                    <input type="email" className="login-section_input" id="XMPPAdrressSignUP" placeholder="username@bryanyep.com"></input>
                 </div>
                 <div className="login-section">
                     <label htmlFor="PasswordSignUp" className="login-section_icon">
                         <span class="material-symbols-outlined">lock</span>
                     </label>
-                    <input className="login-section_input" id="PasswordSignUp" placeholder="Create a password"></input>
+                    <input type="password" className="login-section_input" id="PasswordSignUp" placeholder="Create a password"></input>
                 </div>
                 <div className="login-section">
                     <label htmlFor="PasswordConfirmSignUp" className="login-section_icon">
                         <span class="material-symbols-outlined">lock</span>
                     </label>
-                    <input className="login-section_input" id="PasswordConfirmSignUp" placeholder="Confirm password"></input>
+                    <input type="password" className="login-section_input" id="PasswordConfirmSignUp" placeholder="Confirm password"></input>
                 </div>
 
                 <button type="submit" className="submit button-link" id="SignUpSubmit">Sign Up</button>
 
-                <button className="button-link signUp-cancel">Cancel</button>
+                <div className="button-link signUp-cancel" onClick={SignUpDesctive}>Cancel</div>
             </form>
         </div>
     );
+}
+
+function SignUpDesctive(){
+    const signUp = document.querySelector('.signUp-bg');
+
+    signUp.classList.remove('active');
 }
 
 export default SignUp;

@@ -50,10 +50,11 @@ button, .button{
     gap: 10px;
     padding: 0 20px;
     transition: var(--transition-250ms-linear);
+    cursor: pointer;
 }
 
 .button-link:hover{
-    box-shadow: 5px 5px 0px var(--black);
+    box-shadow: 5px 5px 0px #999999;
 }
 
 .block-container{
