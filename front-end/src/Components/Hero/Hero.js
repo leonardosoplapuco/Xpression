@@ -9,12 +9,12 @@ function Hero() {
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
 
                 <div className='hero-links'>
-                    <a className='button-link hero-link hero-link_1' href='#'>
+                    <a className='button-link hero-link hero-link_1' href='https://xmpp.org/' target='_blank'>
                         <span className='button-link_text'>More info XMPP protocol</span>
                     </a>
-                    <a className='button-link hero-link hero-link_2' href='#'>
+                    <div className='button-link hero-link hero-link_2' onClick={SignUpActive}>
                         <span className='button-link_text'>Create an account</span>
-                    </a>
+                    </div>
                 </div>
             </div>
 
@@ -23,6 +23,12 @@ function Hero() {
             </div>
         </main>
     );
+}
+
+function SignUpActive(){
+    const signUp = document.querySelector('.signUp-bg');
+
+    signUp.classList.add('active');
 }
 
 export default Hero;

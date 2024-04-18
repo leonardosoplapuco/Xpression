@@ -22,12 +22,18 @@ function Login() {
 
                 <button type="submit button-link" className="submit button-link" id="Login-submit">Sign In</button>
 
-                <button className="button-link login-signUp_link">
+                <div className="button-link login-signUp_link" onClick={SignUpActive}>
                     <span className='button-link_text'>Create an account</span>
-                </button>
+                </div>
             </form>
         </div>
     );
+}
+
+function SignUpActive(){
+    const signUp = document.querySelector('.signUp-bg');
+
+    signUp.classList.add('active');
 }
 
 export default Login;

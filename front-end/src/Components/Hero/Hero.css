@@ -42,13 +42,17 @@
     color: var(--color-one);
 }
 
-.hero-link_1, .hero-link:hover{
+.hero-link_1{
+    color: var(--white);
+}
+
+.hero-link_2, .hero-link:hover{
     background: var(--white);
     color: var(--color-one);
 }
 
 .hero-link_2{
-    color: var(--white);
+    color: var(--color-one);
 }
 
 .hero-img{
