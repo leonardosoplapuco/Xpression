@@ -1,9 +1,10 @@
 .hero{
     margin: auto;
+    margin-top: 110px;
     width: calc(100% - 40px);
-    max-width: 2000px;
+    max-width: 2500px;
     height: calc(100vh - 130px);
-    max-height: 600px;
+    max-height: 800px;
     background: var(--color-one);
     overflow: hidden;
     border-radius: 25px;
@@ -35,24 +36,6 @@
     align-items: center;
     justify-content: right;
     gap: 20px;
-}
-
-.hero-link{
-    border: 2px solid var(--white);
-    color: var(--color-one);
-}
-
-.hero-link_1{
-    color: var(--white);
-}
-
-.hero-link_2, .hero-link:hover{
-    background: var(--white);
-    color: var(--color-one);
-}
-
-.hero-link_2{
-    color: var(--color-one);
 }
 
 .hero-img{

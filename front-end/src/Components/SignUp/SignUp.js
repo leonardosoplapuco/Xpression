@@ -10,32 +10,36 @@ function SignUp() {
 
                 <div className="login-section">
                     <label htmlFor="Username" className="login-section_icon">
-                        <span class="material-symbols-outlined">person</span>
+                        <span className="material-symbols-outlined">person</span>
                     </label>
                     <input type="text" className="login-section_input" id="Username" placeholder="Username"></input>
                 </div>
                 <div className="login-section">
                     <label htmlFor="XMPPAdrressSignUP" className="login-section_icon">
-                        <span class="material-symbols-outlined">alternate_email</span>
+                        <span className="material-symbols-outlined">alternate_email</span>
                     </label>
                     <input type="email" className="login-section_input" id="XMPPAdrressSignUP" placeholder="username@bryanyep.com"></input>
                 </div>
                 <div className="login-section">
                     <label htmlFor="PasswordSignUp" className="login-section_icon">
-                        <span class="material-symbols-outlined">lock</span>
+                        <span className="material-symbols-outlined">lock</span>
                     </label>
                     <input type="password" className="login-section_input" id="PasswordSignUp" placeholder="Create a password"></input>
                 </div>
                 <div className="login-section">
                     <label htmlFor="PasswordConfirmSignUp" className="login-section_icon">
-                        <span class="material-symbols-outlined">lock</span>
+                        <span className="material-symbols-outlined">lock</span>
                     </label>
                     <input type="password" className="login-section_input" id="PasswordConfirmSignUp" placeholder="Confirm password"></input>
                 </div>
 
-                <button type="submit" className="submit button-link" id="SignUpSubmit">Sign Up</button>
+                <button type="submit" className="button-link button-link_bg_blue submit" id="SignUpSubmit">
+                    <span className='button-link_text'>SignUp</span>
+                </button>
 
-                <div className="button-link signUp-cancel" onClick={SignUpDesctive}>Cancel</div>
+                <div className="button-link button-link_blue signUp-cancel" onClick={SignUpDesctive}>
+                    <span className='button-link_text'>Cancel</span>
+                </div>
             </form>
         </div>
     );

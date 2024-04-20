@@ -13,6 +13,7 @@
 
 html{
     scroll-behavior: smooth;
+    scroll-padding: 90px;
 }
 
 body::-webkit-scrollbar{
@@ -20,6 +21,7 @@ body::-webkit-scrollbar{
 }
 
 :root{
+    --body:#fff;
     --header: #00487c;
 
     --color-one: #005fa3;
@@ -28,6 +30,13 @@ body::-webkit-scrollbar{
     --black:#222222;
 
     --transition-250ms-linear: all 250ms linear;
+}
+
+.App{
+    background: var(--body);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 h1, h2, h3, h4, h5, h6{
@@ -53,12 +62,83 @@ button, .button{
     cursor: pointer;
 }
 
-.button-link:hover{
-    box-shadow: 5px 5px 0px #999999;
+.button-link_text{
+    transition: var(--transition-250ms-linear);
 }
+
+.button-link_white{
+    border: 2px solid var(--white);
+    background: transparent;
+}
+
+.button-link_white:hover{
+    background: var(--white);
+    box-shadow: 5px 5px 0 #ffffff50;
+}
+
+.button-link_white .button-link_text{
+    color: var(--white);
+}
+
+.button-link_white:hover .button-link_text{
+    color: var(--color-one);
+}
+
+.button-link_bg_white{
+    background: var(--white);
+}
+
+.button-link_bg_white:hover{
+    box-shadow: 5px 5px 0 #ffffff50;
+}
+
+.button-link_bg_white .button-link_text{
+    color: var(--color-one);
+}
+
+.button-link_blue{
+    border: 2px solid var(--color-one);
+}
+
+.button-link_blue .button-link_text{
+    color: var(--color-one);
+}
+
+.button-link_blue:hover{
+    background: var(--color-one);
+    box-shadow: 5px 5px 0 #00000060;
+}
+
+.button-link_blue:hover .button-link_text{
+    color: var(--white);
+}
+
+.button-link_bg_blue:hover{
+    box-shadow: 5px 5px 0 #00000060;
+}
+
+.button-link_bg_blue{
+    background: var(--color-one);
+}
+
+.button-link_bg_blue .button-link_text{
+    color: var(--white);
+}
+
+.button-link_bg_blue:hover{
+    box-shadow: 5px 5px 0 #00000060;
+}
+
+/**/
 
 .block-container{
     width: 100%;
     display: flex;
     padding: 20px;
+}
+
+@media screen and (max-width:600px){
+    .button-link{
+        height: 45px;
+    }
 }
