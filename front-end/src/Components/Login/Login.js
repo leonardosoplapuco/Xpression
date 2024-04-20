@@ -9,20 +9,22 @@ function Login() {
 
                 <div className="login-section">
                     <label htmlFor="XMPPAddressLogin" className="login-section_icon">
-                        <span class="material-symbols-outlined">alternate_email</span>
+                        <span className="material-symbols-outlined">alternate_email</span>
                     </label>
                     <input type='email' className="login-section_input" id="XMPPAddressLogin" placeholder="XMPP address"></input>
                 </div>
                 <div className="login-section">
                     <label htmlFor="PasswordLogin" className="login-section_icon">
-                        <span class="material-symbols-outlined">lock</span>
+                        <span className="material-symbols-outlined">lock</span>
                     </label>
                     <input type='password' className="login-section_input" id="PasswordLogin" placeholder="Password"></input>
                 </div>
 
-                <button type="submit button-link" className="submit button-link" id="Login-submit">Sign In</button>
+                <button type="submit button-link" className="button-link button-link_bg_blue" id="Login-submit">
+                    <span className='button-link_text'>Sign In</span>
+                </button>
 
-                <div className="button-link login-signUp_link" onClick={SignUpActive}>
+                <div className="button-link button-link_blue login-signUp_link" onClick={SignUpActive}>
                     <span className='button-link_text'>Create an account</span>
                 </div>
             </form>

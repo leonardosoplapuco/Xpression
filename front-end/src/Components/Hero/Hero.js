@@ -1,5 +1,5 @@
 import './Hero.css';
-import chat from '../../Media/chat.svg';
+import chat from '../../dist/chat.svg';
 
 function Hero() {
     return(
@@ -9,10 +9,10 @@ function Hero() {
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
 
                 <div className='hero-links'>
-                    <a className='button-link hero-link hero-link_1' href='https://xmpp.org/' target='_blank'>
+                    <a className='button-link button-link_white hero-link hero-link_1' href='https://xmpp.org/' target='_blank'>
                         <span className='button-link_text'>More info XMPP protocol</span>
                     </a>
-                    <div className='button-link hero-link hero-link_2' onClick={SignUpActive}>
+                    <div className='button-link button-link_bg_white hero-link hero-link_2' onClick={SignUpActive}>
                         <span className='button-link_text'>Create an account</span>
                     </div>
                 </div>
