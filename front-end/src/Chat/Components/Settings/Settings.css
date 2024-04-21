@@ -1,0 +1,90 @@
+.SettingsBg{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    padding: 20px;
+    background: rgba(0 0 0 / 0.5);
+    z-index: 100;
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+    transition: var(--transition-250ms-linear);
+}
+
+.SettingsBg.active{
+    opacity: 1;
+    pointer-events: unset;
+    user-select: unset;
+}
+
+.Settings{
+    margin: auto;
+    width: 100%;
+    max-width: 2000px;
+    height: 100%;
+    max-height: 800px;
+    background: var(--white);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    position: relative;
+}
+
+.SettingsClose{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    grid-column: 1/-1;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 10;
+}
+
+.SettingsCloseButton{
+    width: 45px;
+    height: 45px;
+    background: var(--color-one);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.SettingsMenu{
+    width: 200px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid var(--color-one);
+}
+
+.SettingsMenuButton{
+    width: 100%;
+    height: 50px;
+    padding: 0 10px;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 10px;
+    transition: var(--transition-250ms-linear);
+    border-bottom: 2px solid var(--color-one);
+}
+
+.SettingsMenuButton:hover,
+.SettingsMenuButton.active{
+    background: var(--color-one);
+}
+
+.SettingsMenuButton span{
+    color: var(--color-one);
+    transition: var(--transition-250ms-linear);
+}
+
+.SettingsMenuButton:hover span,
+.SettingsMenuButton.active span{
+    color: var(--white);
+}

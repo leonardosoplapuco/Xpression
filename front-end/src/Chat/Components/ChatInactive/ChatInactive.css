@@ -1,0 +1,40 @@
+.ChatInactive{
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: calc(100% - 400px);
+    height: 100vh;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+}
+
+.ChatInactive img{
+    margin-top: auto;
+    width: 100px;
+    height: auto;
+}
+
+.ChatInactive h2{
+    color: var(--color-one);
+    font-size: 35px;
+}
+
+.ChatInactive p{
+    color: var(--color-one);
+}
+
+.ChatInactive span{
+    color: var(--color-one);
+    margin-top: auto;
+}
+
+@media screen and (max-width:600px){
+    .ChatInactive{
+        display: none;
+    }
+}
