@@ -1,0 +1,23 @@
+.SearchBar{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+}
+
+.SearchBar input{
+    width: 100%;
+    height: 50px;
+    padding: 0 20px;
+    border: 2px solid var(--color-one);
+    outline: 0;
+    color: var(--color-one);
+    transition: var(--transition-250ms-linear);
+}
+
+.SearchBar input::placeholder{
+    color: var(--color-one);
+}
+
+.SearchBar input:focus{
+    box-shadow: 5px 5px 0 #00000060;
+}

@@ -7,10 +7,11 @@ function Header() {
                 <h1><a href="/" className="logo">Xpression</a></h1>
 
                 <nav className="menu">
+                    <li><h2><a className="link link-0" href="/Chat">Chat</a></h2></li>
                     <li><h2><a className="link link-1" href="/About">About</a></h2></li>
                     <li><h2><a className="link link-2" href="#">Blog</a></h2></li>
                     <li><h2><a className="link link-3" href="https://github.com/leosoplapuco/Xpression" target="_blank">Source code</a></h2></li>
-                    <li><h2><a className="link link-4" href="#FAQ">FAQ</a></h2></li>
+                    <li><h2><a className="link link-4" href="#FAQ" onClick={menuDesative}>FAQ</a></h2></li>
                 </nav>
 
                 <a className="header-login button-link button-link_bg_white" href="#Login">
@@ -33,6 +34,14 @@ function menuActive(){
 
     menuIcon.classList.toggle('active');
     menu.classList.toggle('active');
+}
+
+function menuDesative(){
+    const menuIcon = document.querySelector('.menu-icon_container');
+    const menu = document.querySelector('.menu');
+
+    menuIcon.classList.remove('active');
+    menu.classList.remove('active');
 }
 
 export default Header;

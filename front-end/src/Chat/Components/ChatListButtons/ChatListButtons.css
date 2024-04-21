@@ -1,0 +1,16 @@
+.ChatListButtons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.ChatListButtons span{
+    width: 45px;
+    height: 45px;
+    color: var(--color-one);
+}
+
+.ChatListButtons span:hover{
+    color: var(--white);
+}

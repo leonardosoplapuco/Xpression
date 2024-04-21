@@ -92,6 +92,10 @@ button, .button{
     box-shadow: 5px 5px 0 #ffffff50;
 }
 
+.button-link_bg_white .button-link_icon{
+    color: var(--color-one);
+}
+
 .button-link_bg_white .button-link_text{
     color: var(--color-one);
 }
