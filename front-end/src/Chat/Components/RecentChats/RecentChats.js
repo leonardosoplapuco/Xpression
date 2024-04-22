@@ -1,5 +1,5 @@
 import './RecentChats.css';
-import Xpression from '../../dist/Xpression.png'
+import Xpression from '../../ChatImg/Xpression.png'
 
 function RecentChats() {
     return (
