@@ -1,5 +1,5 @@
 import './ChatInactive.css';
-import Xpression from '../../dist/Xpression.png';
+import Xpression from '../../ChatImg/Xpression.png';
 
 function ChatInactive() {
     return (
