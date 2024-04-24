@@ -1,3 +1,10 @@
+#Login{
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    background: var(--black-2);
+}
+
 .login{
     margin: auto;
     width: 100%;
@@ -5,25 +12,20 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 10px;
+    background: var(--black-1);
+    padding: 20px;
 }
 
 .login h2{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-size: 45px;
-    /* margin-bottom: 10px; */
-    color: var(--color-one);
+    color: var(--white);
 }
 
 .login-section{
     width: 100%;
     height: auto;
     display: flex;
-    border: 2px solid var(--color-one);
     overflow: hidden;
+    background: var(--black-3);
 }
 
 .login-section_icon{
@@ -32,7 +34,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-one);
+    color: var(--white);
 }
 
 .login-section_input{
@@ -40,9 +42,22 @@
     height: 50px;
     border: 0;
     outline: 0;
-    color: var(--color-one);
+    background: var(--black-3);
+    color: var(--white);
 }
 
 .login-section_input::placeholder{
-    color: var(--color-one);
+    color: var(--white);
+}
+
+.submit .button-link_text{
+    color: var(--black-2);
+}
+
+.login-signUp_link{
+    border: 1px solid var(--white);
+}
+
+.login-signUp_link span{
+    color: var(--white);
 }

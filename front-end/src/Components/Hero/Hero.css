@@ -1,16 +1,17 @@
+#Hero{
+    margin-top: 90px;
+}
+
 .hero{
     margin: auto;
-    margin-top: 110px;
-    width: calc(100% - 40px);
-    max-width: 2500px;
+    max-width: 1440px;
     height: calc(100vh - 130px);
-    max-height: 800px;
-    background: var(--color-one);
+    max-height: 550px;
     overflow: hidden;
-    border-radius: 25px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+    background: var(--hero);
 }
 
 .hero-text{

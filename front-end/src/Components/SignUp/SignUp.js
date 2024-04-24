@@ -5,7 +5,7 @@ function SignUp() {
     return (
         <div className='signUp-bg'>
             <form className='login signUp'>
-                <h2>Xpression</h2>
+                <h2 className="title">Xpression</h2>
                 <p>Create a account in our XMPP server</p>
 
                 <div className="login-section">
@@ -33,22 +33,16 @@ function SignUp() {
                     <input type="password" className="login-section_input" id="PasswordConfirmSignUp" placeholder="Confirm password"></input>
                 </div>
 
-                <button type="submit" className="button-link button-link_bg_blue submit" id="SignUpSubmit">
-                    <span className='button-link_text'>SignUp</span>
+                <button type="submit" className="button-link submit" id="SignUpSubmit">
+                    <span>SignUp</span>
                 </button>
 
-                <div className="button-link button-link_blue signUp-cancel" onClick={SignUpDesctive}>
-                    <span className='button-link_text'>Cancel</span>
-                </div>
+                <a href="/" className="button-link signUp-cancel">
+                    <span>Back to home</span>
+                </a>
             </form>
         </div>
     );
-}
-
-function SignUpDesctive(){
-    const signUp = document.querySelector('.signUp-bg');
-
-    signUp.classList.remove('active');
 }
 
 export default SignUp;

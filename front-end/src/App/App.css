@@ -21,26 +21,93 @@ body::-webkit-scrollbar{
 }
 
 :root{
-    --body:#fff;
+    --body: #FFFFFF;
     --header: #00487c;
+    --hero: #005fa3;
+
+    --blue: #005fa3;
+    --blue-to-white: #005fa3;
+    --blue-to-black: #005fa3;
+    
+    --text-blue: #005fa3;
+    --text:#222;
+
+    --blue-black-1: #005fa3;
+    --blue-black-2: #005fa3;
+    --blue-black-3: #005fa3;
+
+    --black:#0000000;
+    --black-1:#111111;
+    --black-2:#222222;
+    --black-3:#333333;
+
+    --black-0-white: #222222;
+    --black-1-white: #222222;
+    --black-2-white: #222222;
+    --black-3-white: #222222;
+
+    --text-black-to-white: #222222;
+
+    --message: #e9e9e9;
 
     --color-one: #005fa3;
-    --color-two:#0e0e52;
-    --white:#ffffff;
-    --black:#222222;
 
-    --transition-250ms-linear: all 250ms linear;
+    --white:#ffffff;
+    --white-black-1: #FFFFFF;
+    --white-black-2: #FFFFFF;
+    --white-black-3: #FFFFFF;
+
+    --chat-target: #e9e9e9;
+    --gray:#808080;
 }
 
-.App{
+.dark-mode{
+    --body: #222;
+    --header: #333;
+    --hero: #111;
+
+    --text-black-to-white: #FFFFFF;
+
+    --blue-to-white: #FFFFFF;
+    --blue-to-black: #111111;
+
+    --black-0:#000000;
+    --black-1:#111111;
+    --black-2:#222222;
+    --black-3:#333333;
+
+    --black-0-white: #000000;
+    --black-1-white: #111111;
+    --black-2-white: #222222;
+    --black-3-white: #333333;
+
+    --blue-black-1: #111111;
+    --blue-black-2: #222222;
+    --blue-black-3: #333333;
+
+    --white-black-0: #000000;
+    --white-black-1: #111111;
+    --white-black-2: #222222;
+    --white-black-3: #333333;
+
+    --text:#FFFFFF;
+
+    --chat-target: #333333;
+
+    --message: #111111;
+    --gray:#FFFFFF;
+}
+
+body{
     background: var(--body);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
 }
 
 h1, h2, h3, h4, h5, h6{
     font-size: unset;
+}
+
+.text{
+    color: var(--text);
 }
 
 button, .button{
@@ -66,71 +133,36 @@ button, .button{
     transition: var(--transition-250ms-linear);
 }
 
-.button-link_white{
+.button-link_icon{
+    transition: var(--transition-250ms-linear);
+}
+
+.button-link-bg-blue{
+    background: var(--blue-black-1);
     border: 2px solid var(--white);
-    background: transparent;
 }
 
-.button-link_white:hover{
-    background: var(--white);
-    box-shadow: 5px 5px 0 #ffffff50;
-}
-
-.button-link_white .button-link_text{
-    color: var(--white);
-}
-
-.button-link_white:hover .button-link_text{
-    color: var(--color-one);
-}
-
-.button-link_bg_white{
+.button-link-bg-blue:hover{
     background: var(--white);
 }
 
-.button-link_bg_white:hover{
-    box-shadow: 5px 5px 0 #ffffff50;
+.button-link-bg-blue:hover .button-link_text,
+.button-link-bg-blue:hover .button-link_icon{
+    color: var(--blue-black-1)
 }
 
-.button-link_bg_white .button-link_icon{
-    color: var(--color-one);
-}
-
-.button-link_bg_white .button-link_text{
-    color: var(--color-one);
-}
-
-.button-link_blue{
-    border: 2px solid var(--color-one);
-}
-
-.button-link_blue .button-link_text{
-    color: var(--color-one);
-}
-
-.button-link_blue:hover{
-    background: var(--color-one);
-    box-shadow: 5px 5px 0 #00000060;
-}
-
-.button-link_blue:hover .button-link_text{
+.button-link-bg-blue .button-link_text,
+.button-link-bg-blue .button-link_icon{
     color: var(--white);
 }
 
-.button-link_bg_blue:hover{
-    box-shadow: 5px 5px 0 #00000060;
+.button-link-bg-white{
+    background: var(--white);
 }
 
-.button-link_bg_blue{
-    background: var(--color-one);
-}
-
-.button-link_bg_blue .button-link_text{
-    color: var(--white);
-}
-
-.button-link_bg_blue:hover{
-    box-shadow: 5px 5px 0 #00000060;
+.button-link-bg-white .button-link_text,
+.button-link-bg-white .button-link_icon{
+    color: var(--blue-black-2);
 }
 
 /**/
@@ -141,8 +173,21 @@ button, .button{
     padding: 20px;
 }
 
-@media screen and (max-width:600px){
-    .button-link{
-        height: 45px;
-    }
+.title{
+    width: 100%;
+    color: var(--blue-to-white);
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.subtitle{
+    width: 100%;
+    text-align: left;
+    font-size: 25px;
+    color: var(--blue-to-white);
+}
+
+.text{
+    color: var(--text);
 }

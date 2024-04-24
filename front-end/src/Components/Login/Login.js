@@ -5,7 +5,7 @@ function Login() {
     return (
         <div className="block-container" id='Login'>
             <form className="login">
-                <h2>Xpression</h2>
+                <h2 className='title'>Xpression</h2>
 
                 <div className="login-section">
                     <label htmlFor="XMPPAddressLogin" className="login-section_icon">
@@ -20,13 +20,13 @@ function Login() {
                     <input type='password' className="login-section_input" id="PasswordLogin" placeholder="Password"></input>
                 </div>
 
-                <button type="submit button-link" className="button-link button-link_bg_blue" id="Login-submit">
+                <button type="submit" className="button-link submit" id="Login-submit">
                     <span className='button-link_text'>Sign In</span>
                 </button>
 
-                <div className="button-link button-link_blue login-signUp_link" onClick={SignUpActive}>
+                <a href='/SignUp' className="button-link login-signUp_link">
                     <span className='button-link_text'>Create an account</span>
-                </div>
+                </a>
             </form>
         </div>
     );

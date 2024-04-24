@@ -1,23 +1,16 @@
-/* Estilos para la página About Us */
-
-/* Contenedor principal */
-.about-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+#About{
+    margin-top: 90px;
 }
 
-/* Título */
-.Title {
-  font-size: 10rem; /* Tamaño del título aumentado */
-  margin-bottom: 50px;
-  color: var(--color-one); /* Cambio de color a azul */
+.about{
+    margin: auto;
+    width: 100%;
+    max-width: 1440px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-/* Párrafo */
-.Content {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  border: 2px solid var(--color-one); /* Cuadro azul alrededor del texto */
-  padding: 20px; /* Espaciado interno del cuadro */
+.about .title{
+    text-align: left;
 }

@@ -63,24 +63,20 @@ header{
 }
 
 .header-login{
-    background: var(--white);
+    background: var(--white-black-1);
 }
 
-.header-login span{
-    color: var(--header);
+.header-login .button-link_text,
+.header-login .button-link_icon{
+    color: var(--blue-to-white);
 }
 
 .menu-icon_container{
-    width: 45px;
-    height: 45px;
+    width: 50px !important;
     background: var(--white);
     position: relative;
     cursor: pointer;
-    display: none;
-}
-
-.menu-icon_container.active{
-    box-shadow: 5px 5px 0 #ffffff50;
+    display: none !important;
 }
 
 .menu-icon_container span{
@@ -88,7 +84,7 @@ header{
     left: 50%;
     top: 50%;
     translate: -50% -50%;
-    color: var(--color-one);
+    color: var(--blue-black-2);
     transition: var(--transition-250ms-linear);
 }
 
@@ -112,7 +108,7 @@ header{
         font-size: 30px;
     }
     .menu-icon_container{
-        display: block;
+        display: block !important;
     }
     .header-login{
         margin-left: auto;
@@ -128,7 +124,6 @@ header{
         justify-content: flex-start;
         align-items: flex-start;
         gap: 0;
-        transition: var(--transition-250ms-linear);
     }
     .menu.active{
         left: 0;

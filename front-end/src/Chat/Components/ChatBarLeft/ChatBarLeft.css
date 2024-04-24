@@ -4,10 +4,14 @@
     top: 0;
     width: 400px;
     height: 100vh;
-    background: var(--white);
     display: flex;
     flex-direction: column;
-    border-right: 2px solid var(--color-one);
+    border-right: 1px solid var(--gray);
+    z-index: 55;
+}
+
+.dark-mode .ChatBarLeft{
+    border-right: 1px solid var(--black-0);
 }
 
 .ChatList_header{
@@ -17,13 +21,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: var(--white);
-    border-bottom: 2px solid var(--color-one);
+    background: var(--white-black-3);
 }
 
-.ChatList_header h2{
-    color: var(--color-one);
-    font-size: 30px;
+.ChatList_header .subtitle{
+    width: auto;
+    text-align: left;
+    color: var(--text);
 }
 
 @media screen and (max-width:600px){

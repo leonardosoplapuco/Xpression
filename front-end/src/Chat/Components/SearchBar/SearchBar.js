@@ -1,6 +1,6 @@
 import './SearchBar.css';
 
-function SearchBar() {
+function SearchBar(){
     return (
         <div className="SearchBar">
             <input type="text" placeholder="Search for a chat"></input>

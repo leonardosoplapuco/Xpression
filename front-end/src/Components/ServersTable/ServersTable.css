@@ -1,24 +1,44 @@
-.ServersTable {
-    position: relative;
+.ServersTable{
     margin: auto;
-    width: 50%;
-    max-width: 800px;
-    background-color: #E8F8F6;
-    border-radius: 5%;
+    width: 100%;
+    max-width: 1440px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.ServersTable th > h2 {
-    color: blue;
-    font-weight: bolder;
+table{
+    width: 100%;
+    background: var(--white);
 }
 
-.ServersTable td {
+.ServersTable table thead tr th{
+    background: var(--header);
+    height: 60px;
+}
+
+.ServersTable table thead tr th h2{
+    color: var(--white);
+}
+
+.ServersTable table tbody tr td{
+    height: 45px;
+    background: var(--blue-to-black);
     text-align: center;
-    width: 200px;
+    color: var(--white);
 }
 
-.ServersTable tr {
-    height: 50px;
-    top: 10px;
-    bottom: 10px;
+.ServersTable table tbody tr td a{
+    color: var(--white);
+}
+
+.stars{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stars span{
+    color: #f90;
+    font-size: 15px;
 }

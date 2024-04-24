@@ -5,13 +5,12 @@
     width: 100%;
     height: 100vh;
     padding: 20px;
-    background: rgba(0 0 0 / 0.5);
-    z-index: 100;
+    background: #00000050;
+    z-index: 100 !important;
     display: flex;
     opacity: 0;
     pointer-events: none;
     user-select: none;
-    transition: var(--transition-250ms-linear);
 }
 
 .SettingsBg.active{
