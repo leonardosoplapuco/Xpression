@@ -6,13 +6,13 @@ function Footer() {
         <footer className="footer">
             <nav className="footer-menu">
                 <ul>
-                    <li><a href='#'>Contacto</a></li>
-                    <li><a href='#'>Términos y Condiciones</a></li>
-                    <li><a href='#'>Política de Privacidad</a></li>
+                    <li><a href='#'>Contact</a></li>
+                    <li><a href='#'>Terms and conditions</a></li>
+                    <li><a href='#'>Privacy policy</a></li>
                 </ul>
             </nav>
             <div className="footer-info">
-                <p>&copy; 2024 Xpression - Todos los derechos reservados.</p>
+                <p>&copy; 2024 Xpression - All rights reserved</p>
             </div>
         </footer>
     );

@@ -2,22 +2,23 @@
     width: 100%;
     padding: 20px;
     display: flex;
+    background: var(--body);
 }
 
 .SearchBar input{
     width: 100%;
     height: 50px;
     padding: 0 20px;
-    border: 2px solid var(--color-one);
     outline: 0;
-    color: var(--color-one);
-    transition: var(--transition-250ms-linear);
+    background: var(--white-black-3);
+    color: var(--text);
+    border: 1px solid var(--gray);
 }
 
 .SearchBar input::placeholder{
-    color: var(--color-one);
+    color: var(--gray);
 }
 
 .SearchBar input:focus{
-    box-shadow: 5px 5px 0 #00000060;
+    box-shadow: var(--shadow-gray-to-white);
 }

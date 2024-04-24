@@ -5,10 +5,10 @@ function ChatInactive() {
     return (
         <div className="ChatInactive">
             <img src={Xpression}></img>
-            <h2>Xpresssion</h2>
+            <h2 className="title">Xpression</h2>
             <p>The new messaging client with the XMPP protocol</p>
 
-            <span>End-to-end encryption</span>
+            <span className="text">End-to-end encryption</span>
         </div>
     );
 }

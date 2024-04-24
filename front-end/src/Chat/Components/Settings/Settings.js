@@ -22,12 +22,6 @@ function Settings() {
                         </button>
                     </li>
                     <li>
-                        <button className="SettingsMenuButton SettingsMenuButton_3">
-                            <span className="material-symbols-outlined">person</span>
-                            <span className="">Profile</span>
-                        </button>
-                    </li>
-                    <li>
                         <button className="SettingsMenuButton SettingsMenuButton_4">
                             <span className="material-symbols-outlined">info</span>
                             <span className="">More info</span>

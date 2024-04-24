@@ -2,110 +2,37 @@ import './RecentChats.css';
 import Xpression from '../../ChatImg/Xpression.png'
 
 function RecentChats() {
-    return (
+    return(
         <div className="RecentChats">
-            <div className="RecentChat">
+            <div className="RecentChat" onClick={ChatActive}>
                 <div className="RecentChat_icon">
-                    <img src={Xpression}></img>
+                    <img src={Xpression} alt=""></img>
                 </div>
-                <span className="RecentChat_Time">09:00</span>
-                <div className="RecentChat_Resume">
-                    <div className="RecentChat_Username">leosoplapuco</div>
-                    <div className="RecentChat_NewMessages">3 new messages</div>
-                </div>
-            </div>
-            <div className="RecentChat">
-                <div className="RecentChat_icon">
-                    <img src={Xpression}></img>
-                </div>
-                <span className="RecentChat_Time">09:00</span>
+                <span className="RecentChat_Time">11:14</span>
                 <div className="RecentChat_Resume">
                     <div className="RecentChat_Username">bryanyep</div>
-                    <div className="RecentChat_NewMessages">1 new message</div>
+                    <div className="LastMessage">I'm fine this new app is amazing</div>
                 </div>
             </div>
-            <div className="RecentChat">
+            <div className="RecentChat" onClick={ChatActive}>
                 <div className="RecentChat_icon">
-                    <img src={Xpression}></img>
+                    <img src={Xpression} alt=""></img>
                 </div>
                 <span className="RecentChat_Time">09:00</span>
                 <div className="RecentChat_Resume">
-                    <div className="RecentChat_Username">diegonapan</div>
-                    <div className="RecentChat_NewMessages">5 new messages</div>
-                </div>
-            </div>
-            <div className="RecentChat">
-                <div className="RecentChat_icon">
-                    <img src={Xpression}></img>
-                </div>
-                <span className="RecentChat_Time">09:00</span>
-                <div className="RecentChat_Resume">
-                    <div className="RecentChat_Username">kevinhuaynates</div>
-                    <div className="RecentChat_NewMessages">2 new messages</div>
-                </div>
-            </div>
-            <div className="RecentChat">
-                <div className="RecentChat_icon">
-                    <img src={Xpression}></img>
-                </div>
-                <span className="RecentChat_Time">09:00</span>
-                <div className="RecentChat_Resume">
-                    <div className="RecentChat_Username">kevinhuaynates</div>
-                    <div className="RecentChat_NewMessages">2 new messages</div>
-                </div>
-            </div>
-            <div className="RecentChat">
-                <div className="RecentChat_icon">
-                    <img src={Xpression}></img>
-                </div>
-                <span className="RecentChat_Time">09:00</span>
-                <div className="RecentChat_Resume">
-                    <div className="RecentChat_Username">kevinhuaynates</div>
-                    <div className="RecentChat_NewMessages">2 new messages</div>
-                </div>
-            </div>
-            <div className="RecentChat">
-                <div className="RecentChat_icon">
-                    <img src={Xpression}></img>
-                </div>
-                <span className="RecentChat_Time">09:00</span>
-                <div className="RecentChat_Resume">
-                    <div className="RecentChat_Username">kevinhuaynates</div>
-                    <div className="RecentChat_NewMessages">2 new messages</div>
-                </div>
-            </div>
-            <div className="RecentChat">
-                <div className="RecentChat_icon">
-                    <img src={Xpression}></img>
-                </div>
-                <span className="RecentChat_Time">09:00</span>
-                <div className="RecentChat_Resume">
-                    <div className="RecentChat_Username">kevinhuaynates</div>
-                    <div className="RecentChat_NewMessages">2 new messages</div>
-                </div>
-            </div>
-            <div className="RecentChat">
-                <div className="RecentChat_icon">
-                    <img src={Xpression}></img>
-                </div>
-                <span className="RecentChat_Time">09:00</span>
-                <div className="RecentChat_Resume">
-                    <div className="RecentChat_Username">kevinhuaynates</div>
-                    <div className="RecentChat_NewMessages">2 new messages</div>
-                </div>
-            </div>
-            <div className="RecentChat">
-                <div className="RecentChat_icon">
-                    <img src={Xpression}></img>
-                </div>
-                <span className="RecentChat_Time">09:00</span>
-                <div className="RecentChat_Resume">
-                    <div className="RecentChat_Username">kevinhuaynates</div>
-                    <div className="RecentChat_NewMessages">2 new messages</div>
+                    <div className="RecentChat_Username">diego</div>
+                    <div className="RecentChat_NewMessages">3 new messages</div>
                 </div>
             </div>
         </div>
     );
+}
+
+function ChatActive(){
+    const ChatActiveContainer = document.querySelector('.ChatActiveContainer');
+    const ChatInactive = document.querySelector('.ChatInactive');
+    ChatActiveContainer.classList.add('active');
+    ChatInactive.classList.add('desactive');
 }
 
 export default RecentChats;

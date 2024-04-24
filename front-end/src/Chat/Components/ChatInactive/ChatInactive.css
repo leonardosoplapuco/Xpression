@@ -4,13 +4,17 @@
     top: 0;
     width: calc(100% - 400px);
     height: 100vh;
-    background: var(--white);
+    background: var(--white-black-1);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 10px;
     padding: 20px;
+    z-index: -10;
+}
+
+.ChatInactive.desactive{
+    display: none;
 }
 
 .ChatInactive img{
@@ -19,18 +23,14 @@
     height: auto;
 }
 
-.ChatInactive h2{
-    color: var(--color-one);
-    font-size: 35px;
-}
-
-.ChatInactive p{
-    color: var(--color-one);
-}
-
 .ChatInactive span{
-    color: var(--color-one);
     margin-top: auto;
+}
+
+.ChatInactive h2,
+.ChatInactive p,
+.ChatInactive span{
+    color: var(--text);
 }
 
 @media screen and (max-width:600px){

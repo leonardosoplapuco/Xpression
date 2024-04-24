@@ -4,7 +4,7 @@ function Faq() {
     return (
         <div className='block-container' id='FAQ'>
             <div className="faq">
-                <h2 className="faq-title">Frequent questions</h2>
+                <h2 className="title">Frequent questions</h2>
 
                 <div className="faq-target faq-target_1 active" onClick={faqOneActive}>
                     <div className="faq-target_title_content">
