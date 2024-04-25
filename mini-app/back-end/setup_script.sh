@@ -14,6 +14,7 @@ pip3 install django djangorestframework
 django-admin startproject users .
 
 # Create the SQLite database structure and migrate the data structures
+python3 manage.py makemigrations users
 python3 manage.py migrate
 
 # Create superuser for the app
