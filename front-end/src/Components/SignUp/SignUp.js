@@ -1,4 +1,4 @@
-import '../login/Login.css'
+import '../Login/Login.css'
 import './SignUp.css'
 
 function SignUp() {
