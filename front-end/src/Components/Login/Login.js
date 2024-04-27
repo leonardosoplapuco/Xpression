@@ -1,7 +1,7 @@
 import React from 'react';
 import './Login.css'
 
-function login() {
+function Login() {
     return (
         <div className="block-container" id='Login'>
             <form className="login">
@@ -32,4 +32,4 @@ function login() {
     );
 }
 
-export default login;
+export default Login;
