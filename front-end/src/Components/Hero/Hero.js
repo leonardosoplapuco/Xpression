@@ -13,7 +13,7 @@ function Hero() {
                         <a className='button-link button-link-bg-blue hero-link hero-link_1' href='https://xmpp.org/' target='_blank'>
                             <span className='button-link_text'>More info XMPP protocol</span>
                         </a>
-                        <a href='/SignUp' className='button-link button-link-bg-white hero-link hero-link_2'>
+                        <a href='/signup' className='button-link button-link-bg-white hero-link hero-link_2'>
                             <span className='button-link_text'>Create an account</span>
                         </a>
                     </div>
@@ -25,12 +25,6 @@ function Hero() {
             </div>
         </main>
     );
-}
-
-function SignUpActive(){
-    const signUp = document.querySelector('.signUp-bg');
-
-    signUp.classList.add('active');
 }
 
 export default Hero;

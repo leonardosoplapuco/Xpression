@@ -1,7 +1,7 @@
 import React from 'react';
 import './Login.css'
 
-function Login() {
+function login() {
     return (
         <div className="block-container" id='Login'>
             <form className="login">
@@ -24,7 +24,7 @@ function Login() {
                     <span className='button-link_text'>Sign In</span>
                 </button>
 
-                <a href='/SignUp' className="button-link login-signUp_link">
+                <a href='/signup' className="button-link login-signUp_link">
                     <span className='button-link_text'>Create an account</span>
                 </a>
             </form>
@@ -32,10 +32,4 @@ function Login() {
     );
 }
 
-function SignUpActive(){
-    const signUp = document.querySelector('.signUp-bg');
-
-    signUp.classList.add('active');
-}
-
-export default Login;
+export default login;
