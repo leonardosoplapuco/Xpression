@@ -6,7 +6,7 @@ function ChatInactive() {
         <div className="ChatInactive">
             <img src={Xpression}></img>
             <h2 className="title">Xpression</h2>
-            <p>The new messaging client with the XMPP protocol</p>
+            <p className="text">The new messaging client with the XMPP protocol</p>
 
             <span className="text">End-to-end encryption</span>
         </div>

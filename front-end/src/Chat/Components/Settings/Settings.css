@@ -1,89 +1,214 @@
-.SettingsBg{
+.Settings{
     position: fixed;
-    left: 0;
+    right: -400px;
     top: 0;
     width: 100%;
+    max-width: 400px;
     height: 100vh;
-    padding: 20px;
-    background: #00000050;
-    z-index: 100 !important;
+    background: var(--body);
+    border-left: 1px solid var(--gray-black-0);
+    transition: var(--transition-250ms);
     display: flex;
-    opacity: 0;
-    pointer-events: none;
-    user-select: none;
+    flex-direction: column;
+    z-index: 2;
 }
 
-.SettingsBg.active{
-    opacity: 1;
-    pointer-events: unset;
-    user-select: unset;
+.Settings.active{
+    right: 0;
 }
 
-.Settings{
-    margin: auto;
+.SettingsMenu, .SettingsClose{
     width: 100%;
-    max-width: 2000px;
-    height: 100%;
-    max-height: 800px;
-    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    gap: 10px;
+}
+
+.SettingsMenu li,
+.SettingsClose li{
+    width: 100%;
+}
+
+.SettingsMenuButton,
+.SettingsCloseButton{
+    width: 100% !important;
+    transition: var(--transition-250ms);
+}
+
+.SettingsMenuButton.active,
+.SettingsMenuButton:hover{
+    background: var(--message);
+}
+
+.MyProfileInfo{
+    background: var(--body);
+    transition: var(--transition-250ms);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    overflow-y: auto;
+    gap: 20px;
+    padding: 10px;
+}
+
+.MyProfileInfo::-webkit-scrollbar{
+    width: 3px;
+}
+
+.MyProfileInfo::-webkit-scrollbar-thumb{
+    background: var(--gray);
+}
+
+.Profile{
+    width: 100%;
     display: grid;
     grid-template-columns: auto 1fr;
+    gap: 10px;
+}
+
+.ProfilePhoto{
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
     position: relative;
 }
 
-.SettingsClose{
-    display: flex;
-    align-items: center;
-    justify-content: right;
-    grid-column: 1/-1;
+.ProfilePhotoImg{
     position: absolute;
-    right: 0;
+    left: 0;
     top: 0;
-    z-index: 10;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
 }
 
-.SettingsCloseButton{
-    width: 45px;
-    height: 45px;
-    background: var(--color-one);
+#ProfilePhotoImgInput{
+    position: none;
+    user-select: none;
+    opacity: 0;
+}
+
+.ProfilePhotoImgInput{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: #FFFFFF50;
+}
+
+.ProfilePhotoImgInput span{
     color: var(--white);
+}
+
+.ProfileData{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: left;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.MyProfileSettings{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.MyProfileSettingsTarget{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+    height: 50px;
+    position: relative;
+}
+
+.MyProfileSettingsTargetIcon{
+    width: 50px;
+    height: 50px;
+    color: var(--text);
+    transition: var(--transition-250ms);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.SettingsMenu{
-    width: 200px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    border-right: 2px solid var(--color-one);
-}
-
-.SettingsMenuButton{
-    width: 100%;
-    height: 50px;
+.MyProfileSettingsSpan{
+    position: absolute;
+    left: 60px;
+    top: -10px;
+    background: var(--body);
+    color: var(--text);
+    transition: var(--transition-250ms);
     padding: 0 10px;
-    background: var(--white);
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    gap: 10px;
-    transition: var(--transition-250ms-linear);
-    border-bottom: 2px solid var(--color-one);
+    font-size: 13px;
 }
 
-.SettingsMenuButton:hover,
-.SettingsMenuButton.active{
-    background: var(--color-one);
+.MyProfileSettingsTarget input{
+    width: calc(100% - 50px);
+    height: 100%;
+    background: var(--body);
+    border: 1px solid var(--gray);
+    transition: var(--transition-250ms);
+    color: var(--text);
+    outline: 0;
+    padding: 0 20px;
 }
 
-.SettingsMenuButton span{
-    color: var(--color-one);
-    transition: var(--transition-250ms-linear);
+.MyProfileSettingsTarget input::placeholder{
+    color: var(--gray);
 }
 
-.SettingsMenuButton:hover span,
-.SettingsMenuButton.active span{
-    color: var(--white);
+select{
+    width: 100%;
+    height: 100%;
+    padding: 0 20px;
+    background: var(--body);
+    transition: var(--transition-250ms);
+    color: var(--text);
+    border: 1px solid var(--gray);
+    outline: 0;
+}
+
+select option{
+    width: 100%;
+    padding: 10px !important;
+    padding: 0 20px;
+    background: var(--message);
+    color: var(--text);
+}
+
+.SignOutButton{
+    width: 100%;
+    background: var(--message);
+}
+
+.SettingsClose{
+    margin-top: auto;
+}
+
+.SafeButton{
+    background: var(--message);
+}
+
+.CloseButton{
+    border: 1px solid var(--gray);
+    background: var(--body);
+}
+
+@media screen and (max-width:600px){
+    .Settings{
+        max-width: none;
+        right: -100%;
+    }
 }

@@ -44,7 +44,7 @@
 .faq-target_content{
     color: var(--text-black-to-white);
     background: #d9d9d9;
-    transition: var(--transition-250ms-linear);
+    transition: var(--transition-250ms);
     height: 0;
     padding: 0 20px;
     overflow: hidden;
@@ -57,4 +57,10 @@
 .faq-target.active .faq-target_content{
     padding: 20px;
     height: auto;
+}
+
+@media screen and (max-width:600px){
+    .faq-target_title_content{
+        height: 120px;
+    }
 }

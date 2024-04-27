@@ -1,12 +1,14 @@
 .RecentChats{
     width: 100%;
-    height: calc(100% - 180px);
+    height: calc(100% - 140px);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     overflow-y: auto;
     gap: 5px;
     padding: 0 20px;
+    background: var(--body);
+    transition: var(--transition-250ms);
 }
 
 .RecentChats::-webkit-scrollbar{
@@ -23,7 +25,7 @@
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 10px;
-    padding: 20px;
+    padding: 10px 20px;
     position: relative;
     cursor: pointer;
 }
@@ -56,6 +58,7 @@
     top: 10px;
     color: var(--gray);
     font-size: 12px;
+    transition: var(--transition-250ms);
 }
 
 .RecentChat_Resume{
@@ -68,9 +71,11 @@
 
 .RecentChat_Username{
     color: var(--text);
+    transition: var(--transition-250ms);
 }
 
 .RecentChat_NewMessages, .LastMessage{
     color: var(--text);
     font-size: 11px;
+    transition: var(--transition-250ms);
 }

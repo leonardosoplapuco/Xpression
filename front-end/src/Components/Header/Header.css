@@ -85,7 +85,7 @@ header{
     top: 50%;
     translate: -50% -50%;
     color: var(--blue-black-2);
-    transition: var(--transition-250ms-linear);
+    transition: var(--transition-250ms);
 }
 
 .hamburguer-close{
@@ -123,6 +123,7 @@ header{
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
+        transition: var(--transition-250ms);
         gap: 0;
     }
     .menu.active{

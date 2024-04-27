@@ -1,8 +1,9 @@
 .SearchBar{
     width: 100%;
-    padding: 20px;
+    padding: 10px 20px;
     display: flex;
     background: var(--body);
+    transition: var(--transition-250ms);
 }
 
 .SearchBar input{
@@ -13,6 +14,7 @@
     background: var(--white-black-3);
     color: var(--text);
     border: 1px solid var(--gray);
+    transition: var(--transition-250ms);
 }
 
 .SearchBar input::placeholder{

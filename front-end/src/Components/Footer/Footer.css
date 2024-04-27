@@ -1,24 +1,9 @@
 .footer {
-    background: var(--blue-to-black);
+    background: var(--color-one);
     padding: 40px 20px;
     display: grid;
     grid-template-columns: 1fr;
     gap: 10px;
-}
-
-.footer-menu ul{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.footer-menu li a{
-    color: var(--white);
-}
-
-.footer-menu a:hover{
-    text-decoration: underline;
 }
 
 .footer-info{
@@ -27,15 +12,4 @@
 
 .footer-info p{
     color: var(--white);
-}
-
-@media screen and (max-width:600px){
-    .footer{
-        gap: 20px;
-        padding: 20px;
-    }
-    .footer-menu ul{
-        flex-direction: column;
-        gap: 10px;
-    }
 }
