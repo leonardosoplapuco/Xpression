@@ -1,0 +1,92 @@
+.AddContact{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    width: calc(100% - 40px);
+    max-width: 450px;
+    padding: 20px;
+    background: var(--body);
+    border: 1px solid var(--gray-black-0);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    z-index: 2;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+    transition: var(--transition-250ms);
+}
+
+.AddContact.active{
+    opacity: 1;
+    pointer-events: unset;
+    user-select: unset;
+}
+
+.AddContactInput{
+    width: 100%;
+    height: 50px;
+    border: 1px solid var(--gray);
+    background: var(--body);
+    padding: 0 20px;
+    outline: 0;
+    color: var(--text);
+    transition: var(--transition-250ms);
+}
+
+.AddContactInput::placeholder{
+    color: var(--gray);
+}
+
+.ResultsAddContact{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.ResultAddContact{
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 10px;
+    padding: 0 10px;
+    border: 1px solid var(--gray);
+    cursor: pointer;
+    transition: var(--transition-250ms);
+}
+
+.ResultAddContact:hover,
+.ResultAddContact.active,
+.ResultAddContact.select{
+    background: var(--message);
+}
+
+.ResultAddContact img{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+
+.AddContactButtons{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.AddContactButton{
+    width: 100% !important;
+}
+
+.CloseAddContact{
+    border: 1px solid var(--gray);
+}
+
+.AddContactEject{
+    background: var(--message);
+}
