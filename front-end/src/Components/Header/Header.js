@@ -7,13 +7,13 @@ function Header() {
                 <h1><a className="logo">Xpression</a></h1>
 
                 <nav className="menu">
-                    <li><h2><a className="link link-1" href="/About">About</a></h2></li>
+                    {/* <li><h2><a className="link link-1" href="/About">About</a></h2></li> */}
                     <li><h2><a className="link link-2" href="#">Blog</a></h2></li>
                     <li><h2><a className="link link-3" href="https://github.com/leosoplapuco/Xpression" target="_blank">Source code</a></h2></li>
                     <li><h2><a className="link link-4" href="/#FAQ" onClick={menuDesactive}>FAQ</a></h2></li>
                 </nav>
 
-                <a className="header-login button-link" href="/Login">
+                <a className="header-login button-link" href="/login">
                     <span className="button-link_text">Login</span>
                     <span className="material-symbols-outlined button-link_icon">person</span>
                 </a>

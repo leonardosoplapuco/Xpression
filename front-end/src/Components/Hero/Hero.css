@@ -4,9 +4,9 @@
 
 .hero{
     margin: auto;
-    max-width: 1440px;
+    max-width: 2440px;
     height: calc(100vh - 130px);
-    max-height: 550px;
+    max-height: 800px;
     overflow: hidden;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
