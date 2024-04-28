@@ -11,10 +11,6 @@
     z-index: 0;
 }
 
-.dark-mode .ChatBarLeft{
-    border-right: 1px solid var(--black-0);
-}
-
 .ChatList_header{
     width: 100%;
     height: 70px;
@@ -36,5 +32,6 @@
     .ChatBarLeft{
         width: 100%;
         max-width: none;
+        border-right: none;
     }
 }

@@ -177,10 +177,6 @@
     z-index: 50;
 }
 
-.dark-mode .ChatActiveInputArea{
-    border-top: 1px solid var(--black-0);
-}
-
 .ChatActiveInput{
     height: 50px;
     width: calc(100% - (50px * 2));
