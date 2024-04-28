@@ -5,6 +5,7 @@ import ChatActive from './Components/ChatActive/ChatActive';
 import Settings from './Components/Settings/Settings';
 import LayerBlur from './Components/LayerBlur/LayerBlur';
 import AddContact from './Components/AddContact/AddContact';
+import CreateGroup from './Components/CreateGroup/CreateGroup';
 
 function Chat() {
     return (
@@ -15,6 +16,7 @@ function Chat() {
             <><Settings/></>
             <><LayerBlur/></>
             <><AddContact/></>
+            <><CreateGroup/></>
         </div>
     );
 }
