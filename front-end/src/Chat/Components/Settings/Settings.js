@@ -1,5 +1,5 @@
 import './Settings.css';
-import {DesactiveLayerBlur} from '../LayerBlur/LayerBlur'
+import { DesactiveLayerBlur } from '../LayerBlur/LayerBlur'
 import leo from '../../ChatImg/leo.jpg';
 
 function Settings() {

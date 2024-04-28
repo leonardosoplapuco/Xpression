@@ -6,7 +6,7 @@
     max-width: 400px;
     height: 100vh;
     background: var(--body);
-    border-left: 1px solid var(--gray-black-0);
+    border-left: 1px solid var(--gray);
     transition: var(--transition-250ms);
     display: flex;
     flex-direction: column;
@@ -210,5 +210,6 @@ select option{
     .Settings{
         max-width: none;
         right: -100%;
+        border-left: none;
     }
 }
