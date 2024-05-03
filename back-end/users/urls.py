@@ -23,6 +23,15 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', views.user_list),
     path('users/<int:id>', views.user_detail),
+	path('messages/', views.message_list),  # Nueva ruta para la lista de mensajes
+    path('messages/<int:id>/', views.message_detail),  # Nueva ruta para detalles de mensaje
+    path('favorite_messages/', views.favorite_message_list),
+    path('favorite_messages/<int:id>/', views.favorite_message_detail),
+    path('draft_messages/', views.draft_message_list),
+    path('application_configurations/', views.application_configuration_list),
+    path('application_configurations/<int:id>/', views.application_configuration_detail),
+    path('search_history/', views.search_history_list),
+    path('personal_notes/', views.personal_note_list),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
