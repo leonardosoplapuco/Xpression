@@ -63,11 +63,12 @@ function SignUp() {
 
         axios.post('http://127.0.0.1:8000/users/', {
             username: userName,
-            address: userAddress,
-            password: userPassword,
+			email: userAddress,
+			password: userPassword,
+			
           })
             .then((response) => {
-              console.log(response.data)
+              console.log(response.data);
               alert('POST REQUEST SENT TO API');
             })
             .catch((error) => {
