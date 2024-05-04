@@ -1,13 +1,12 @@
-import React from 'react';
-import './Footer.css';
+import './Footer.css'
 
-function Footer() {
+function Footer(){
     return (
-        <footer className="footer">
-            <div className="footer-info">
-                <p>&copy; 2024 Xpression - All rights reserved</p>
+        <div className='Footer'>
+            <div className='block-container footer'>
+                <p>&copy; Xpression 2024</p>
             </div>
-        </footer>
+        </div>
     );
 }
 

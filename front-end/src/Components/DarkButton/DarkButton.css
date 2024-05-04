@@ -1,19 +1,15 @@
-.return-button{
+.DarkButton{
     position: fixed;
-    left: 20px;
+    right: 20px;
     top: 20px;
     width: 50px;
     height: 50px;
-    background: var(--body);
     border: 2px solid var(--black-2-white);
     border-radius: 100%;
-    transition: var(--transition-250ms);
     display: flex;
-    z-index: 100;
-}
-
-.return-button span{
-    margin: auto;
-    color: var(--text);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
     transition: var(--transition-250ms);
+    z-index: 100;
 }

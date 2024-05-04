@@ -1,15 +1,18 @@
-.footer {
-    background: var(--color-one);
-    padding: 40px 20px;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
+.Footer{
+    background: var(--black-2);
+    transition: var(--transition-250ms);
 }
 
-.footer-info{
-    text-align: center;
+.footer{
+    display: flex;
 }
 
-.footer-info p{
+.footer p{
+    margin: auto;
     color: var(--white);
+    transition: var(--transition-250ms);
+}
+
+.dark-mode .Footer{
+    background: var(--black-1);
 }

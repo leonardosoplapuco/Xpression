@@ -1,33 +1,49 @@
-import React from 'react';
 import './Login.css'
+import LoginImgLight from '../../dist/login-img_light.svg';
+import LoginImgDark from '../../dist/login-img_dark.svg';
+import DarkButton  from '../DarkButton/DarkButton';
+import Footer from '../Footer/Footer'
 
-function Login() {
-    return (
-        <div className="block-container" id='Login'>
-            <form className="login">
-                <h2 className='title'>Xpression</h2>
+function Login(){
+    return(
+        <div className="Login">
+            <><DarkButton/></>
 
-                <div className="login-section">
-                    <label htmlFor="XMPPAddressLogin" className="login-section_icon">
-                        <span className="material-symbols-outlined">alternate_email</span>
-                    </label>
-                    <input type='email' className="login-section_input" id="XMPPAddressLogin" placeholder="XMPP address"></input>
+            <div className="block-container" id="Login">
+                <div className='login'>
+                    <div className='login-target login-target_1'>
+                        <img src={LoginImgLight} alt="Xpression" className='login-img-light'/>
+                        <img src={LoginImgDark} alt="Xpression" className='login-img-dark'/>
+                    </div>
+
+                    <div className='login-target login-target_2'>
+                        <h2 className='subtitle text'>Xpression</h2>
+                        <p className='text'>Free chat for free people</p>
+
+                        <form className='form login-form'>
+                            <fieldset className='login-form_target'>
+                                <span className="material-symbols-outlined form-icon text">alternate_email</span>
+                                <input name='email' type="email" id='email' className="form-input text" title='Email' placeholder="" required/>
+                                <label htmlFor="email" className="text form-label">XMPP address</label>
+                            </fieldset>
+                            <fieldset className="login-form_target">
+                                <span className="material-symbols-outlined form-icon text">lock</span>
+                                <input name='password' type="password" id='password' className="form-input text" title='Password' placeholder="" required/>
+                                <label htmlFor="password" className="text form-label">Password</label>
+                            </fieldset>
+
+                            <button className='button-link button-link-bg_black-2_white'>
+                                <span className='button-link_text'>Log in</span>
+                            </button>
+                            <a href='/signup' className='button-link button-link-bg_white_black_1'>
+                                <span className='button-link_text'>Create an account</span>
+                            </a>
+                        </form>
+                    </div>
                 </div>
-                <div className="login-section">
-                    <label htmlFor="PasswordLogin" className="login-section_icon">
-                        <span className="material-symbols-outlined">lock</span>
-                    </label>
-                    <input type='password' className="login-section_input" id="PasswordLogin" placeholder="Password"></input>
-                </div>
+            </div>
 
-                <button type="submit" className="button-link submit" id="Login-submit">
-                    <span className='button-link_text'>Sign In</span>
-                </button>
-
-                <a href='/signup' className="button-link login-signUp_link">
-                    <span className='button-link_text'>Create an account</span>
-                </a>
-            </form>
+            <><Footer/></>
         </div>
     );
 }
