@@ -1,63 +1,63 @@
-#Login{
-    display: flex;
+.Login, .SignUp{
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: var(--body);
+    transition: var(--transition-250ms);
+}
+
+#Login, #SignUp{
+    width: 100%;
+    display: flex;
     min-height: 100vh;
-    background: var(--black-2);
 }
 
-.login{
-    margin: auto;
+.login, .signup{
     width: 100%;
-    max-width: 450px;
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-    background: var(--black-1);
-    padding: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px 0;
 }
 
-.login h2{
-    color: var(--white);
-}
-
-.login-section{
+.login-target, .signup-target{
     width: 100%;
-    height: auto;
     display: flex;
-    overflow: hidden;
-    background: var(--black-3);
-}
-
-.login-section_icon{
-    width: 60px;
-    height: 100%;
-    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: var(--white);
 }
 
-.login-section_input{
-    width: calc(100% - 40px);
-    height: 50px;
-    border: 0;
-    outline: 0;
-    background: var(--black-3);
-    color: var(--white);
+.login-target_1 img, .signup-target img{
+    margin: auto;
+    width: 100%;
+    max-width: 400px;
 }
 
-.login-section_input::placeholder{
-    color: var(--white);
+.login-img-dark{
+    display: none;
 }
 
-.submit .button-link_text{
-    color: var(--black-2);
+.dark-mode .login-img-dark{
+    display: block;
 }
 
-.login-signUp_link{
-    border: 1px solid var(--white);
+.dark-mode .login-img-light{
+    display: none;
 }
 
-.login-signUp_link span{
-    color: var(--white);
+.login-target_2 p, .signup-target_2 p{
+    margin-bottom: 30px;
+}
+
+@media screen and (max-width:600px){
+    .login, .signup{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .login-target_1, .signup-target_1{
+        display: none;
+    }
 }
