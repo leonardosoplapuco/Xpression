@@ -3,6 +3,81 @@ import DarkButton from "../DarkButton/DarkButton";
 import LoginImgLight from '../../dist/login-img_light.svg';
 import LoginImgDark from '../../dist/login-img_dark.svg';
 import Footer from "../Footer/Footer";
+import { useState } from 'react';
+import axios from 'axios';
+function SignUp() {
+
+    const [userName, setUserName] = useState('');
+    const [userAddress, setUserAddress] = useState('');
+    const [userPassword, setUserPassword] = useState('');
+    const [userPasswordConfirm, setUserPasswordConfirm] = useState('');
+
+    function handleUserName(event) {
+        setUserName(event.target.value);
+        console.log(userName);
+    }
+
+    function handleUserAddress(event) {
+        setUserAddress(event.target.value);
+        console.log(userAddress);
+    }
+
+    function handleUserPassword(event) {
+        setUserPassword(event.target.value);
+        console.log(userPassword);
+    }
+
+    function handleUserPasswordConfirm(event) {
+        setUserPasswordConfirm(event.target.value);
+        console.log(userPasswordConfirm);
+    }
+
+    const handleSubmit = (event) => {
+
+        event.preventDefault();
+
+        alert('ESTOY DENTRO DE HANDLESUBMIT');
+        alert(`${userName}\n${userAddress}\n${userPassword}\n${userPasswordConfirm}`);
+
+        if (userName.length > 50) {
+            console.error('User name must be 50 characters long or less.');
+            return;
+        }
+
+        if (userAddress.length > 50) {
+            console.error('Address must be 50 characters long or less.');
+            return;
+        }
+
+        if (userPassword.length > 20) {
+            console.error('Password must be 20 characters long or less.');
+            return;
+        }
+
+
+        if (userPassword !== userPasswordConfirm) {
+            console.error('Passwords don\'t match.');
+            return;
+        } else {
+            alert('PASSWORDS MATCH');
+        }
+
+
+        axios.post('http://127.0.0.1:8000/users/', {
+            username: userName,
+			email: userAddress,
+			password: userPassword,
+			
+          })
+            .then((response) => {
+              console.log(response.data);
+              alert('POST REQUEST SENT TO API');
+            })
+            .catch((error) => {
+              console.error(error);
+              alert('POST REQUEST FAILED');
+            });
+    }
 
 function SignUp(){
     return (

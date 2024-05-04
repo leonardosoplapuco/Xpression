@@ -6,10 +6,10 @@
 
 
 # Install the required dependencies in the virtual environment
-pip3 install django djangorestframework django-cors-headers
+pip3 install django djangorestframework django-cors-headers channels psycopg2-binary
 
 # Start the Django project with the name 'users' in the current directory
-django-admin startproject users .
+django-admin startproject main
 
 # Create the SQLite database structure and migrate the data structures
 python3 manage.py makemigrations users
