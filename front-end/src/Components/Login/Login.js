@@ -1,10 +1,49 @@
+import React, {  useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css'
 import LoginImgLight from '../../dist/login-img_light.svg';
 import LoginImgDark from '../../dist/login-img_dark.svg';
 import DarkButton  from '../DarkButton/DarkButton';
 import Footer from '../Footer/Footer'
 
-function Login(){
+function Login() {
+
+    const navigate = useNavigate();
+
+    const [userName, setUserName] = useState('');
+    const [userPassword, setUserPassword] = useState('');
+
+    function handleUserName(event) {
+        setUserName(event.target.value);
+    }
+
+    function handleUserPassword(event) {
+        setUserPassword(event.target.value);
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        alert('ESTOY DENTRO DE HANDLESUBMIT');
+        const url = 'ws://127.0.0.1:8000/ws/socket-server/';
+        console.log(url);
+        const loginSocket = new WebSocket(url);
+
+        alert('SE CRE├ô EL OBJECTO WEBSOCKET');
+
+        const credentials = {
+            'username': userName,
+            'password': userPassword,
+        };
+        loginSocket.send(JSON.stringify(credentials));
+        loginSocket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            console.log(data);
+            if (data.success === true) {
+                navigate('/chat');
+            }
+        };
+    };
+
     return(
         <div className="Login">
             <><DarkButton/></>
@@ -20,15 +59,38 @@ function Login(){
                         <h2 className='subtitle text'>Xpression</h2>
                         <p className='text'>Free chat for free people</p>
 
-                        <form className='form login-form'>
+                        <form
+                            className='form login-form'
+                            onSubmit={handleSubmit}
+                        >
                             <fieldset className='login-form_target'>
                                 <span className="material-symbols-outlined form-icon text">alternate_email</span>
-                                <input name='email' type="email" id='email' className="form-input text" title='Email' placeholder="" required/>
+                                <input
+                                    name='email'
+                                    type='email'
+                                    id='email'
+                                    className='form-input text'
+                                    title='Email'
+                                    placeholder=''
+                                    required
+                                    value={userName}
+                                    onChange={handleUserName}
+                                />
                                 <label htmlFor="email" className="text form-label">XMPP address</label>
                             </fieldset>
                             <fieldset className="login-form_target">
                                 <span className="material-symbols-outlined form-icon text">lock</span>
-                                <input name='password' type="password" id='password' className="form-input text" title='Password' placeholder="" required/>
+                                <input
+                                    name='password'
+                                    type="password"
+                                    id='password'
+                                    className="form-input text"
+                                    title='Password'
+                                    placeholder=""
+                                    required
+                                    value={userPassword}
+                                    onChange={handleUserPassword}
+                                />
                                 <label htmlFor="password" className="text form-label">Password</label>
                             </fieldset>
 
