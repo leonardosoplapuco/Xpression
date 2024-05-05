@@ -2,17 +2,14 @@
 
 ###### EXECUTE THIS SCRIPT ONLY AFTER SOURCING VIRTUAL_ENVIRONMENT.SH ######
 # From the command line:
-# $   ./setup_script.sh
+# (.venv)$   ./setup_script.sh
 
 
 # Install the required dependencies in the virtual environment
-pip3 install django djangorestframework django-cors-headers channels psycopg2-binary
-
-# Start the Django project with the name 'users' in the current directory
-django-admin startproject main
+pip3 install django==4.0.0 djangorestframework django-cors-headers channels==3.0.4 psycopg2-binary xmpppy
 
 # Create the SQLite database structure and migrate the data structures
-python3 manage.py makemigrations users
+python3 manage.py makemigrations
 python3 manage.py migrate
 
 # Create superuser for the app
