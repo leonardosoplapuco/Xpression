@@ -1,0 +1,40 @@
+.ChatInactive{
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: calc(100% - 400px);
+    height: 100vh;
+    background: var(--white-black-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    z-index: -5;
+    transition: var(--transition-250ms);
+}
+
+.ChatInactive.desactive{
+    display: none;
+}
+
+.ChatInactive img{
+    margin-top: auto;
+    width: 100px;
+    height: auto;
+}
+
+.ChatInactive span{
+    margin-top: auto;
+}
+
+.ChatInactive h2{
+    color: var(--text);
+    transition: var(--transition-250ms);
+}
+
+@media screen and (max-width:600px){
+    .ChatInactive{
+        display: none;
+    }
+}

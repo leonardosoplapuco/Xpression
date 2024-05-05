@@ -1,0 +1,12 @@
+:root{
+    --light-gray-black-0:#E8E9E8;
+    --button: #EFEFEF;
+    --chat:#F5F4F5;
+    --chat-active:#EBEBEA;
+}
+
+.dark-mode{
+    --light-gray-black-0:#000000;
+    --button: #111111;
+    --chat:#111111;
+}

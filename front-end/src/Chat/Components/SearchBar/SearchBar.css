@@ -1,0 +1,15 @@
+.SearchBar{
+    padding: 0 20px;
+}
+
+.SearchBar .form-label{
+    left: 10px;
+}
+
+.SearchBar .form-input{
+    padding: 0 20px;
+}
+
+.SearchBar .form-input:focus + .form-label{
+    left: 10px;
+}

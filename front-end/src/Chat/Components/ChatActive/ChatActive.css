@@ -1,0 +1,227 @@
+.ChatActiveContainer{
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: calc(100% - 400px);
+    height: 100vh;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    transition: all 250ms ease;
+}
+
+.ChatActiveContainer.active{
+    opacity: 1;
+    pointer-events: unset;
+    user-select: unset;
+}
+
+.ChatActive{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.ChatActiveTop{
+    width: 100%;
+    height: 70px;
+    background: var(--body);
+    border-bottom: 1px solid var(--light-gray-black-0);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.dark-mode .ChatActiveTop{
+    border-bottom: 1px solid var(--black-0);
+}
+
+/**/
+
+.ReturnContactList{
+    padding: 0 !important;
+    width: 50px !important;
+    height: 50px !important;
+    display: none !important;
+}
+
+.ReturnContactList:hover{
+    background: var(--light-gray-black-0);
+}
+
+.ReturnContactList span{
+    margin: auto;
+}
+
+/**/
+
+.ContactActiveInfo{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 10px;
+}
+
+.ContactActiveInfo img{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+.ContactActiveName{
+    color: var(--text);
+}
+
+.ContactActiveMenu{
+    width: 50px !important;
+    height: 50px;
+    display: flex;
+    padding: 0 !important;
+}
+
+/**/
+
+.messages{
+    width: 100%;
+    height: calc(100vh - 120px);
+    background: var(--body);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+    overflow-y: auto;
+    z-index: 50;
+    transition: var(--transition-250ms-linear);
+    padding: 20px 30px;
+    background: var(--body);
+}
+
+.messages::-webkit-scrollbar{
+    width: 3px;
+}
+
+.messages::-webkit-scrollbar-thumb{
+    background: var(--black-2);
+}
+
+.MessageContainer{
+    width: 100%;
+    display: flex;
+}
+
+.ContactMessageText{
+    margin-right: auto;
+    border-radius: 0 5px 5px 5px;
+}
+
+.UserMessageText{
+    margin-left: auto;
+    border-radius: 5px 0 5px 5px;
+}
+
+.Message{
+    width: auto;
+    max-width: 60ch;
+    background: var(--chat);
+    position: relative;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.Message::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 15px;
+    height: 15px;
+    background: var(--chat);
+}
+
+.ContactMessageText::before{
+    left: -15px;
+    clip-path: polygon(0 0, 100% 100%, 100% 0);
+}
+
+.UserMessageText::before{
+    right: -15px;
+    clip-path: polygon(100% 0, 0 0, 0 100%);
+}
+
+.MessageDate{
+    font-size: 12px;
+    color: var(--text);
+    margin-left: auto;
+}
+
+/**/
+
+.ChatActiveInputArea{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--light-gray-black-0);
+    background: var(--body);
+    z-index: 50;
+}
+
+.ChatActiveInput{
+    height: 50px;
+    width: calc(100% - (50px * 2));
+    border: 1px solid var(--gray);
+    outline: 0;
+    background: var(--white-black-3);
+    color: var(--text);
+}
+
+.ChatActiveInput::placeholder{
+    color: var(--gray);
+}
+
+.ChatActiveInputArea .button-link{
+    color: var(--text);
+    width: 50px;
+    height: 50px;
+    padding: 0;
+}
+
+.ContactActiveSendImage:hover{
+    background: var(--message);
+}
+
+.ContactActiveSendMessage{
+    background: var(--message);
+    color: var(--black-2-white);
+}
+
+@media screen and (max-width:600px){
+    .messages{
+        padding: 20px;
+    }
+    .ReturnContactList{
+        display: flex !important;
+    }
+    .ChatActiveContainer{
+        width: 100%;
+        right: -100%;
+        opacity: 1;
+        pointer-events: unset;
+        user-select: unset;
+    }
+    .ChatActiveContainer.active{
+        right: 0;
+    }
+}
