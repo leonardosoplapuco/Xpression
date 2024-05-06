@@ -6,7 +6,52 @@ import json
 
 logging.basicConfig(level=logging.NOTSET)
 
+class XMPPClient:
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+        self.server = username.split('@')[1]
+        self.client = None
+
+    def connect(self):
+        jid = xmpp.protocol.JID(self.username)
+        self.client = xmpp.Client(server=self.server, debug=True)
+        self.client.connect()
+        authenticate = self.client.auth(user=jid.getNode(), password=self.password, resource=jid.getResource())
+
+        return authenticate
+
+    def get_contacts(self):
+        roster = self.client.getRoster()
+        print(dir(roster))
+        contacts = roster.getItems()
+
+        return contacts
+
+    def send_message(self, receiver, message):
+        self.client.send(xmpp.protocol.Message(to=receiver, body=message))
+
+    def start_listener(self):
+        while True:
+            try:
+                self.client.Process(1)  # Process incoming stanzas/events with a timeout of 1 second
+            except KeyboardInterrupt:
+                print("Exiting...")
+                break
+
+    def register_message_handler(self, message_handler):
+        try:
+            self.client.RegisterHandler('message', message_handler)
+            logging.info("Message handler registered successfully.")
+        except Exception as exception:
+            logging.error(f"Failer to register message handler: {exception}")
+
+    def disconnect(self):
+        if self.client:
+            self.client.disconnect()
+
 class LoginConsumer(WebsocketConsumer):
+
     def connect(self):
         self.accept()
         self.send(text_data=json.dumps({
@@ -25,36 +70,36 @@ class LoginConsumer(WebsocketConsumer):
         logging.info("mensaje")
         logging.info(f"password: {password}")
 
-        def message_handler(conn, msg):
-            print("Received message:", msg.getBody())
+        self.xmpp_client = XMPPClient(username, password)
+        authenticate = self.xmpp_client.connect()
 
-        jid = xmpp.protocol.JID(username)
-        server = username.split('@')[1]
-
-        client = xmpp.Client(server=server, debug=True)
-        client.connect()
-        authenticate = client.auth(user=jid.getNode(), password=password, resource=jid.getResource())
+        contacts = self.xmpp_client.get_contacts()
 
         if authenticate == 'sasl':
-            client.sendInitPresence()
+            self.xmpp_client.client.sendInitPresence()
             self.send(json.dumps({
                 'success': True,
                 'message': 'Log in successful'
             }))
+            self.xmpp_client.register_message_handler(self.message_handler)
+            self.xmpp_client.start_listener()
         
         receiver = "leosoplapuco@movim.eu"
-        message = f"Este mensaje fue enviado desde {username} hacia {receiver} a traves de la libreria xmpppy de Python"
+        message = f"Este es el roster de {username} hacia {receiver}: {contacts}"
 
-        client.send(xmpp.protocol.Message(to=receiver, body=message))
+        self.xmpp_client.send_message(receiver, message)
 
-        client.RegisterHandler('message', message_handler)
+    def message_handler(self, conn, msg):
+        print("Received message:", msg.getBody())
+        message_data = {
+            'from': msg.getFrom().getStripped(),
+            'body': msg.getBody()
+        }
+        print(message_data)
+        self.send(text_data=json.dumps({
+            'type': 'xmpp_message',
+            'message': message_data
+        }))
 
-        while True:
-            try:
-                client.Process(1)  # Process incoming stanzas/events with a timeout of 1 second
-            except KeyboardInterrupt:
-                print("Exiting...")
-                break
-
-    def disconnect(self):
+    def disconnect(self, close_code):
         pass
