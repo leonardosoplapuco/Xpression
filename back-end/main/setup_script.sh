@@ -6,7 +6,7 @@
 
 
 # Install the required dependencies in the virtual environment
-pip3 install django==4.0.0 djangorestframework django-cors-headers channels==3.0.4 psycopg2-binary xmpppy
+pip3 install django==4.0.0 djangorestframework django-cors-headers channels==3.0.4 psycopg2-binary xmpppy xmltodict
 
 # Create the SQLite database structure and migrate the data structures
 python3 manage.py makemigrations

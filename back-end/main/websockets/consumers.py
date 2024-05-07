@@ -2,6 +2,7 @@ from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
 import logging
 import xmpp
+import xmltodict
 import json
 
 logging.basicConfig(level=logging.NOTSET)
@@ -23,7 +24,6 @@ class XMPPClient:
 
     def get_contacts(self):
         roster = self.client.getRoster()
-        print(dir(roster))
         contacts = roster.getItems()
 
         return contacts
@@ -61,45 +61,61 @@ class LoginConsumer(WebsocketConsumer):
 
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
-        username = text_data_json['username']
-        password = text_data_json['password']
+        print(text_data_json)
+        if 'type' in text_data_json and text_data_json['type'] == 'login_request':
+            username = text_data_json['username']
+            password = text_data_json['password']
 
-        print('username:', username)
-        print('password:', password)
+            print('username:', username)
+            print('password:', password)
 
-        logging.info("mensaje")
-        logging.info(f"password: {password}")
+            logging.info("mensaje")
+            logging.info(f"password: {password}")
 
-        self.xmpp_client = XMPPClient(username, password)
-        authenticate = self.xmpp_client.connect()
+            self.xmpp_client = XMPPClient(username, password)
+            authenticate = self.xmpp_client.connect()
 
-        contacts = self.xmpp_client.get_contacts()
+            contacts = self.xmpp_client.get_contacts()
 
-        if authenticate == 'sasl':
-            self.xmpp_client.client.sendInitPresence()
-            self.send(json.dumps({
-                'success': True,
-                'message': 'Log in successful'
+            if authenticate == 'sasl':
+                self.xmpp_client.client.sendInitPresence()
+                self.send(json.dumps({
+                    'success': True,
+                    'message': 'Log in successful'
+                }))
+                self.xmpp_client.register_message_handler(self.message_handler)
+                self.xmpp_client.start_listener()
+            
+            receiver = "diegonabe@xabber.org"
+            message = f"Este es el roster de {username} hacia {receiver}: {contacts}"
+
+            self.xmpp_client.send_message(receiver, message)
+
+        elif 'type' in text_data_json and text_data_json['type'] == 'get_roster_request':
+            print(text_data_json)
+            self.send_roster()
+
+    def send_roster(self):
+        if hasattr(self, 'xmpp_client'):
+            contacts = self.xmpp_client.get_contacts()
+            self.send(text_data=json.dumps({
+                'type': 'roster_update',
+                'contacts': contacts
             }))
-            self.xmpp_client.register_message_handler(self.message_handler)
-            self.xmpp_client.start_listener()
-        
-        receiver = "leosoplapuco@movim.eu"
-        message = f"Este es el roster de {username} hacia {receiver}: {contacts}"
-
-        self.xmpp_client.send_message(receiver, message)
+        else:
+            self.send(text_data=({
+                'type': 'error',
+                'message': 'XMPP client not initialized'
+            }))
 
     def message_handler(self, conn, msg):
-        print("Received message:", msg.getBody())
-        message_data = {
-            'from': msg.getFrom().getStripped(),
-            'body': msg.getBody()
-        }
-        print(message_data)
-        self.send(text_data=json.dumps({
-            'type': 'xmpp_message',
-            'message': message_data
-        }))
+        xml_to_dict = xmltodict.parse(str(msg))
+        if 'body' not in xml_to_dict['message']:
+            xml_to_dict['message']['body'] = None
+        print('XML Message:', xml_to_dict)
+        json_message = json.dumps(xml_to_dict)
+        print('JSON Message:', json_message)
+        self.send(text_data=json_message)
 
     def disconnect(self, close_code):
         pass
