@@ -1,5 +1,7 @@
 import React, {  useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { initializeWebSocket } from '../../actions/socketActions';
 import './Login.css'
 import LoginImgLight from '../../dist/login-img_light.svg';
 import LoginImgDark from '../../dist/login-img_dark.svg';
@@ -9,6 +11,7 @@ import Footer from '../Footer/Footer'
 function Login() {
 
     const navigate = useNavigate();
+    const dispatch= useDispatch();
 
     const [userName, setUserName] = useState('');
     const [userPassword, setUserPassword] = useState('');
@@ -31,10 +34,21 @@ function Login() {
         alert('SE CRE├ô EL OBJECTO WEBSOCKET');
 
         const credentials = {
+            'type': 'login_request',
             'username': userName,
             'password': userPassword,
         };
+
         loginSocket.send(JSON.stringify(credentials));
+
+        alert('MENSAJE ENVIADO');
+
+        // Sends the WebSocket object to Redux store
+        dispatch(initializeWebSocket(loginSocket));
+
+        alert('WEBOSOCKET ENVIADO A REDUX STORE');
+
+
         loginSocket.onmessage = (event) => {
             const data = JSON.parse(event.data);
             console.log(data);
