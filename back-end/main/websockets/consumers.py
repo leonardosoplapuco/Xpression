@@ -18,7 +18,7 @@ class XMPPClient:
 
     def connect(self):
         jid = xmpp.protocol.JID(self.username)
-        self.client = xmpp.Client(server=self.server, debug=True)
+        self.client = xmpp.Client(server=self.server, debug=[])
         self.client.connect()
         authenticate = self.client.auth(user=jid.getNode(), password=self.password, resource=jid.getResource())
 
@@ -29,6 +29,13 @@ class XMPPClient:
         contacts = roster.getItems()
 
         return contacts
+
+    def get_presence(self, contact_jid):
+        contact_presence = ''
+        def presence_handler(conn, presence):
+            contact_presence = presence.getType()
+
+        return contact_presence
 
     def send_message(self, receiver, message):
         self.client.send(xmpp.protocol.Message(to=receiver, body=message))
@@ -96,6 +103,11 @@ class LoginConsumer(WebsocketConsumer):
             print(text_data_json)
             self.send_roster()
 
+        elif 'type' in text_data_json and text_data_json['type'] == 'get_presence':
+            print(text_data_json)
+            contact_jid = xmpp.protocol.JID(text_data_json['user'])
+            self.get_presence(contact_jid)
+
         elif 'type' in text_data_json and text_data_json['type'] == 'send_message':
             receiver = text_data_json['to']
             message = text_data_json['message']
@@ -105,6 +117,10 @@ class LoginConsumer(WebsocketConsumer):
                 'status': f'Message sent successfully to {receiver}',
                 'message': message
             }));
+
+        if 'type' in text_data_json and text_data_json['type'] == 'logout_request':
+            print(text_data_json)
+            self.disconnect()
 
     def send_roster(self):
         if hasattr(self, 'xmpp_client'):
@@ -119,6 +135,11 @@ class LoginConsumer(WebsocketConsumer):
                 'type': 'error',
                 'message': 'XMPP client not initialized'
             }))
+
+    def get_presence(self, contact_jid):
+        if hasattr(self, 'xmpp_client'):
+            presence = self.xmpp_client.get_presence(contact_jid)
+            print(f'{contact_jid}: {presence}')
 
     def send_message(self, receiver, message):
         if hasattr(self, 'xmpp_client'):
@@ -143,5 +164,11 @@ class LoginConsumer(WebsocketConsumer):
         print('JSON Message:', json_message)
         self.send(text_data=json_message)
 
-    def disconnect(self, close_code):
-        pass
+    def disconnect(self):
+        if hasattr(self, 'xmpp_client'):
+            self.xmpp_client.disconnect()
+            self.send(text_data=json.dumps({
+                'type': 'xmpp_logout',
+                'message': 'You logged out of the XMPP server',
+            }))
+        self.close()
