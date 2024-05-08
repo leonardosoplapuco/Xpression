@@ -24,29 +24,22 @@ function Login() {
         setUserPassword(event.target.value);
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        alert('ESTOY DENTRO DE HANDLESUBMIT');
         const url = 'ws://127.0.0.1:8000/ws/socket-server/';
-        console.log(url);
         const loginSocket = new WebSocket(url);
 
-        alert('SE CRE├ô EL OBJECTO WEBSOCKET');
+        loginSocket.onopen = () => {
+            const credentials = {
+                'type': 'login_request',
+                'username': userName,
+                'password': userPassword,
+            };
+            loginSocket.send(JSON.stringify(credentials));
 
-        const credentials = {
-            'type': 'login_request',
-            'username': userName,
-            'password': userPassword,
+            // Sends the WebSocket object to Redux store
+            dispatch(initializeWebSocket(loginSocket));
         };
-
-        loginSocket.send(JSON.stringify(credentials));
-
-        alert('MENSAJE ENVIADO');
-
-        // Sends the WebSocket object to Redux store
-        dispatch(initializeWebSocket(loginSocket));
-
-        alert('WEBOSOCKET ENVIADO A REDUX STORE');
 
         loginSocket.onmessage = (event) => {
             const data = JSON.parse(event.data);
