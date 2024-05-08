@@ -48,7 +48,6 @@ function Login() {
 
         alert('WEBOSOCKET ENVIADO A REDUX STORE');
 
-
         loginSocket.onmessage = (event) => {
             const data = JSON.parse(event.data);
             console.log(data);

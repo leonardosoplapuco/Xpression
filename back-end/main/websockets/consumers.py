@@ -1,5 +1,6 @@
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
+import threading
 import logging
 import xmpp
 import xmltodict
@@ -33,6 +34,10 @@ class XMPPClient:
         self.client.send(xmpp.protocol.Message(to=receiver, body=message))
 
     def start_listener(self):
+        self.thread = threading.Thread(target=self.start_listener_thread)
+        self.thread.start()
+
+    def start_listener_thread(self):
         while True:
             try:
                 self.client.Process(1)  # Process incoming stanzas/events with a timeout of 1 second
@@ -87,27 +92,37 @@ class LoginConsumer(WebsocketConsumer):
                 self.xmpp_client.register_message_handler(self.message_handler)
                 self.xmpp_client.start_listener()
             
-            receiver = "diegonabe@xabber.org"
-            message = f"Este es el roster de {username} hacia {receiver}: {contacts}"
-
-            self.xmpp_client.send_message(receiver, message)
-
-        elif 'type' in text_data_json and text_data_json['type'] == 'get_roster_request':
+        elif 'type' in text_data_json and text_data_json['type'] == 'get_roster':
             print(text_data_json)
             self.send_roster()
+
+        elif 'type' in text_data_json and text_data_json['type'] == 'send_message':
+            receiver = text_data_json['to']
+            message = text_data_json['message']
+            self.send_message(receiver, message)
+            self.send(json.dumps({
+                'type': 'send_message', 
+                'status': f'Message sent successfully to {receiver}',
+                'message': message
+            }));
 
     def send_roster(self):
         if hasattr(self, 'xmpp_client'):
             contacts = self.xmpp_client.get_contacts()
+            print('ESTOY DENTRO DE SEND_ROSTER')
             self.send(text_data=json.dumps({
                 'type': 'roster_update',
                 'contacts': contacts
             }))
         else:
-            self.send(text_data=({
+            self.send(text_data=json.dumps({
                 'type': 'error',
                 'message': 'XMPP client not initialized'
             }))
+
+    def send_message(self, receiver, message):
+        if hasattr(self, 'xmpp_client'):
+            self.xmpp_client.send_message(receiver, message)
 
     def message_handler(self, conn, msg):
         xml_to_dict = xmltodict.parse(str(msg))

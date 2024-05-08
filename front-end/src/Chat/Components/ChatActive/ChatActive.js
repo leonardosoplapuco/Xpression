@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import './ChatActive.css';
 import Xpression from '../../ChatImg/Xpression.png';
 
@@ -6,6 +7,11 @@ function ChatActive() {
     const [message, setMessage] = useState('');
     const [messagesList, setMessagesList] = useState([]);
     const messagesEndRef = useRef(null);
+
+    const messageReceiver = 'leosoplapuco@movim.eu';
+
+    // Instancia de la conexion con WebSocket
+    const socket = useSelector(state => state.socket.socket);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -15,12 +21,34 @@ function ChatActive() {
         scrollToBottom();
     }, [messagesList]);
 
+    function sendMessage(receiver, message) {
+        if (socket) {
+            socket.send(JSON.stringify({
+                'type': 'send_message',
+                'to': receiver,
+                'message': message,
+            }));
+            socket.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+                console.log('Received message:', message);
+
+                if (message.type === 'send_message') {
+                    return true;
+                }
+            };
+        }
+    }
+
     const handleMessageChange = (event) => {
         setMessage(event.target.value);
     };
 
     const handleSendMessage = () => {
-        if (message.trim() !== '') {
+        if (message.trim() === '') {
+            return;
+        }
+
+        if (sendMessage(messageReceiver, message) === true) {
             // Agrega el nuevo mensaje a la lista de mensajes
             const newMessage = {
                 text: message,
