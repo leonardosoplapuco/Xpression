@@ -1,8 +1,31 @@
+import { useSelector } from 'react-redux';
 import './Settings.css';
 import { DesactiveLayerBlur } from '../LayerBlur/LayerBlur'
 import leo from '../../ChatImg/leo.jpg';
 
 function Settings() {
+
+    // Instancia de la conexion con WebSocket
+    const socket = useSelector(state => state.socket.socket);
+
+    const signOut = (event) => {
+        event.preventDefault();
+        if (socket) {
+            socket.send(JSON.stringify({
+                'type': 'logout_request',
+            }));
+            socket.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+                console.log('Received message:', message);
+
+                if (message.type === 'xmpp_logout') {
+                    // Aqui va la lagica para salir del chat
+                    // y redirigir a la pantalla principal
+                }
+            };
+        }
+    };
+
     return(
         <div className="Settings">
             <ul className="SettingsMenu">
@@ -80,7 +103,11 @@ function Settings() {
 
             <ul className="SettingsClose">
                 <li>
-                    <button className="button-link SettingsCloseButton SignOutButton" title="Sign out">
+                    <button
+                        className="button-link SettingsCloseButton SignOutButton"
+                        title="Sign out"
+                        onClick={signOut}
+                    >
                         <div className="button-link_text text">Sign out</div>
                     </button>
                 </li>

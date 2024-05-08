@@ -18,7 +18,7 @@ class XMPPClient:
 
     def connect(self):
         jid = xmpp.protocol.JID(self.username)
-        self.client = xmpp.Client(server=self.server, debug=[])
+        self.client = xmpp.Client(server=self.server, debug=True)
         self.client.connect()
         authenticate = self.client.auth(user=jid.getNode(), password=self.password, resource=jid.getResource())
 
@@ -59,9 +59,9 @@ class XMPPClient:
         except Exception as exception:
             logging.error(f"Failer to register message handler: {exception}")
 
-    def disconnect(self):
-        if self.client:
-            self.client.disconnect()
+#    def disconnect(self):
+#        if self.client:
+#            self.client.disconnect()
 
 class LoginConsumer(WebsocketConsumer):
 
@@ -120,12 +120,12 @@ class LoginConsumer(WebsocketConsumer):
 
         if 'type' in text_data_json and text_data_json['type'] == 'logout_request':
             print(text_data_json)
-            self.disconnect()
+            close_code = 1000
+            self.disconnect(close_code)
 
     def send_roster(self):
         if hasattr(self, 'xmpp_client'):
             contacts = self.xmpp_client.get_contacts()
-            print('ESTOY DENTRO DE SEND_ROSTER')
             self.send(text_data=json.dumps({
                 'type': 'roster_update',
                 'contacts': contacts
@@ -164,7 +164,7 @@ class LoginConsumer(WebsocketConsumer):
         print('JSON Message:', json_message)
         self.send(text_data=json_message)
 
-    def disconnect(self):
+    def disconnect(self, close_code):
         if hasattr(self, 'xmpp_client'):
             self.xmpp_client.disconnect()
             self.send(text_data=json.dumps({
