@@ -3,6 +3,7 @@ from asgiref.sync import async_to_sync
 import logging
 import xmpp
 import xmltodict
+import datetime
 import json
 
 logging.basicConfig(level=logging.NOTSET)
@@ -113,7 +114,17 @@ class LoginConsumer(WebsocketConsumer):
         if 'body' not in xml_to_dict['message']:
             xml_to_dict['message']['body'] = None
         print('XML Message:', xml_to_dict)
-        json_message = json.dumps(xml_to_dict)
+        utc_now = datetime.datetime.utcnow()
+        local_time_difference = datetime.timedelta(hours=-5)
+        local_time_now = utc_now + local_time_difference
+        current_time = local_time_now.strftime("%d-%m-%Y %H:%M")
+        new_dict = {
+            'from': xml_to_dict['message']['@from'],
+            'body': xml_to_dict['message']['body'],
+            'time': current_time
+        }
+
+        json_message = json.dumps(new_dict)
         print('JSON Message:', json_message)
         self.send(text_data=json_message)
 
