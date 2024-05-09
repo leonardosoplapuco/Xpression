@@ -8,7 +8,7 @@ function ChatActive() {
     const [messagesList, setMessagesList] = useState([]);
     const messagesEndRef = useRef(null);
 
-    const messageReceiver = 'leosoplapuco@movim.eu';
+    const messageReceiver = 'leosoplapuco@xabber.org';
 
     // Instancia de la conexion con WebSocket
     const socket = useSelector(state => state.socket.socket);
@@ -22,21 +22,29 @@ function ChatActive() {
     }, [messagesList]);
 
     function sendMessage(receiver, message) {
-        if (socket) {
-            socket.send(JSON.stringify({
-                'type': 'send_message',
-                'to': receiver,
-                'message': message,
-            }));
-            socket.onmessage = (event) => {
-                const message = JSON.parse(event.data);
-                console.log('Received message:', message);
+        return new Promise((resolve, reject) => {
+            if (socket) {
+                socket.send(JSON.stringify({
+                    'type': 'send_message',
+                    'to': receiver,
+                    'message': message,
+                }));
+                socket.send(JSON.stringify({
+                    'type': 'get_presence',
+                    'user': messageReceiver,
+                }));
+                socket.onmessage = (event) => {
+                    const message = JSON.parse(event.data);
+                    console.log('Received message:', message);
 
-                if (message.type === 'send_message') {
-                    return true;
-                }
-            };
-        }
+                    if (message.type === 'send_message') {
+                        resolve(true);
+                    }
+                };
+            } else {
+                reject(new Error('Socket not available'));
+            }
+        });
     }
 
     const handleMessageChange = (event) => {
@@ -48,18 +56,23 @@ function ChatActive() {
             return;
         }
 
-        if (sendMessage(messageReceiver, message) === true) {
-            // Agrega el nuevo mensaje a la lista de mensajes
-            const newMessage = {
-                text: message,
-                sender: 'user', // Indica que el mensaje es del usuario
-                time: new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) // Formato de hora personalizado
-            };
-            setMessagesList([...messagesList, newMessage]);
+        sendMessage(messageReceiver, message)
+            .then((result) => {
+                console.log('Message sent successfully:', result);
+                // Agrega el nuevo mensaje a la lista de mensajes
+                const newMessage = {
+                    text: message,
+                    sender: 'user', // Indica que el mensaje es del usuario
+                    time: new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) // Formato de hora personalizado
+                };
+                setMessagesList([...messagesList, newMessage]);
 
-            // Limpia el input después de enviar el mensaje
-            setMessage('');
-        }
+                // Limpia el input después de enviar el mensaje
+                setMessage('');
+            })
+            .catch((error) => {
+                console.error('Error sending message:', error);
+            });
     };
 
     const handleKeyDown = (event) => {
