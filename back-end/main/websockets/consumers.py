@@ -1,5 +1,9 @@
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
+from . import tests
+import urllib3
+import requests
+from requests.auth import HTTPBasicAuth
 import threading
 import logging
 import xmpp
@@ -179,3 +183,41 @@ class LoginConsumer(WebsocketConsumer):
                 'message': 'You logged out of the XMPP server',
             }))
         self.close()
+
+class SignUpConsumer(WebsocketConsumer):
+    def connect(self):
+        self.accept()
+
+    def receive(self, text_data):
+        text_data_json = json.loads(text_data)
+
+        if 'type' in text_data_json and text_data_json['type'] == 'signup_request':
+
+            user = text_data_json['address'].split('@')[0]
+            password = text_data_json['password']
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+            url = "https://bryanyep.com:5443/api/register"
+            data = {
+                "user": user,
+                "host": "bryanyep.com",
+                "password": password
+            }
+
+            admin_user = "admin@bryanyep.com"
+            admin_password = tests.key
+            response = requests.post(url, json=data, auth=HTTPBasicAuth(admin_user, admin_password), verify=False)
+
+            print(f'Response: {response.status_code}')
+
+            if response.status_code == 200:
+                self.send(text_data=json.dumps({
+                    'type': 'signup_success',
+                    'success': True,
+                    'message': 'You created a new XMPP account at bryanyep.com!',
+                    'new_user': f'{user}@bryanyep.com'
+                }))
+
+ 
+    def disconnect(self, close_code):
+        pass
+

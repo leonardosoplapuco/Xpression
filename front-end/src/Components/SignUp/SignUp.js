@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './SignUp.css'
 import DarkButton from "../DarkButton/DarkButton";
@@ -13,32 +14,27 @@ function SignUp() {
     const [userPassword, setUserPassword] = useState('');
     const [userPasswordConfirm, setUserPasswordConfirm] = useState('');
 
+    const navigate = useNavigate();
+
     function handleUserName(event) {
         setUserName(event.target.value);
-        console.log(userName);
     }
 
     function handleUserAddress(event) {
         setUserAddress(event.target.value);
-        console.log(userAddress);
     }
 
     function handleUserPassword(event) {
         setUserPassword(event.target.value);
-        console.log(userPassword);
     }
 
     function handleUserPasswordConfirm(event) {
         setUserPasswordConfirm(event.target.value);
-        console.log(userPasswordConfirm);
     }
 
     const handleSubmit = (event) => {
 
         event.preventDefault();
-
-        alert('ESTOY DENTRO DE HANDLESUBMIT');
-        alert(`${userName}\n${userAddress}\n${userPassword}\n${userPasswordConfirm}`);
 
         if (userName.length > 50) {
             console.error('User name must be 50 characters long or less.');
@@ -59,24 +55,43 @@ function SignUp() {
         if (userPassword !== userPasswordConfirm) {
             console.error('Passwords don\'t match.');
             return;
-        } else {
-            alert('PASSWORDS MATCH');
         }
 
+        const url = 'ws://127.0.0.1:8000/ws/signup-socket-server/';
+        const loginSocket = new WebSocket(url);
 
-        axios.post('http://127.0.0.1:8000/users/', {
-            username: userName,
-            address: userAddress,
-            password: userPassword,
-          })
-            .then((response) => {
-              console.log(response.data)
-              alert('POST REQUEST SENT TO API');
-            })
-            .catch((error) => {
-              console.error(error);
-              alert('POST REQUEST FAILED');
-            });
+        loginSocket.onopen = () => {
+            const newUserData = {
+                'type': 'signup_request',
+                'username': userName,
+                'address': userAddress,
+                'password': userPassword,
+            };
+            loginSocket.send(JSON.stringify(newUserData));
+        };
+
+        loginSocket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            console.log(data);
+            if (data.type === 'signup_success' && data.success === true) {
+                alert(data.message);
+                navigate('/');
+            }
+        };
+
+//        axios.post('http://127.0.0.1:8000/users/', {
+//            username: userName,
+//            address: userAddress,
+//            password: userPassword,
+//          })
+//            .then((response) => {
+//              console.log(response.data)
+//              alert('POST REQUEST SENT TO API');
+//            })
+//            .catch((error) => {
+//              console.error(error);
+//              alert('POST REQUEST FAILED');
+//            });
     }
 
     return (

@@ -8,7 +8,7 @@ function ChatActive() {
     const [messagesList, setMessagesList] = useState([]);
     const messagesEndRef = useRef(null);
 
-    const messageReceiver = 'leosoplapuco@xabber.org';
+    const messageReceiver = 'leosoplapuco@movim.eu';
 
     // Instancia de la conexion con WebSocket
     const socket = useSelector(state => state.socket.socket);
