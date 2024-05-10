@@ -21,6 +21,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('registered_users/', views.registered_user_list),
     path('users/', views.user_list),
     path('users/<int:id>', views.user_detail),
     path('messages/', views.message_list),  # Nueva ruta para la lista de mensajes

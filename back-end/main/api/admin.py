@@ -1,4 +1,5 @@
 from django.contrib import admin
+from .models import RegisteredUser
 from .models import User
 from .models import Message
 from .models import FavouriteMessage
@@ -7,6 +8,7 @@ from .models import ApplicationConfiguration
 from .models import SearchHistory
 from .models import PersonalNote
 
+admin.site.register(RegisteredUser)
 admin.site.register(User)
 admin.site.register(Message)
 admin.site.register(FavouriteMessage)

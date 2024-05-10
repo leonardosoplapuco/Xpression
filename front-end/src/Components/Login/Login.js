@@ -1,6 +1,7 @@
 import React, {  useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import { initializeWebSocket } from '../../actions/socketActions';
 import './Login.css'
 import LoginImgLight from '../../dist/login-img_light.svg';
@@ -45,6 +46,35 @@ function Login() {
             const data = JSON.parse(event.data);
             console.log(data);
             if (data.success === true) {
+                let userId = 0;
+                axios.post('http://127.0.0.1:8000/users/', {
+                    username: userName.split('@')[0],
+                    address: userName,
+                  })
+                    .then((response) => {
+                      console.log(response.data)
+                      userId = response.data.id;
+                    })
+                    .catch((error) => {
+                      console.error(error);
+                    });
+                
+                console.log('userId:', userId);
+//                axios.post('http://127.0.0.1:8000/application_configurations/', {
+//                    user: userId,
+//                    username: userName.split('@')[0],
+//                    full_name: '',
+//                    address: userName,
+//                    theme: false,
+//                    language: '',
+//                  })
+//                    .then((response) => {
+//                      console.log(response.data)
+//                    })
+//                    .catch((error) => {
+//                      console.error(error);
+//                    });
+
                 navigate('/chat');
             }
         };

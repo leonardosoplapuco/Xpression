@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import User
+from .models import RegisteredUser
 from .models import Message
 from .models import FavouriteMessage
 from .models import DraftMessage
@@ -8,6 +9,7 @@ from .models import ApplicationConfiguration
 from .models import SearchHistory
 from .models import PersonalNote
 from .serializers import UserSerializer
+from .serializers import RegisteredUserSerializer
 from .serializers import MessageSerializer
 from .serializers import FavouriteMessageSerializer
 from .serializers import DraftMessageSerializer
@@ -19,12 +21,28 @@ from rest_framework.response import Response
 from rest_framework import status
 
 @api_view(['GET', 'POST'])
+def registered_user_list(request, format=None):
+    if request.method == 'GET':
+        registered_users = RegisteredUser.objects.all()
+        serializer = RegisteredUserSerializer(registered_users, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = RegisteredUserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'POST'])
 def user_list(request, format=None):
     if request.method == 'GET':
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
+        address = request.data.get('address')
+        if User.objects.filter(address=address).exists():
+            return Response({'message': 'User already exists'}, status=status.HTTP_200_OK)
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -34,15 +52,15 @@ def user_list(request, format=None):
 @api_view(['GET', 'PUT', 'DELETE'])
 def user_detail(request, id, format=None):
     try:
-        user = User.objects.get(pk=id)
+        user = RegisteredUser.objects.get(pk=id)
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = UserSerializer(user)
+        serializer = RegisteredUserSerializer(user)
         return Response(serializer.data)
     elif request.method == 'PUT':
-        serializer = UserSerializer(user, data=request.data)
+        serializer = RegisteredUserSerializer(user, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -145,13 +163,16 @@ def application_configuration_list(request, format=None):
         serializer = ApplicationConfigurationSerializer(configurations, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
+        user_id = request.data.get('user')
+        if ApplicationConfiguration.objects.filter(user_id=user_id).exists():
+            return Response({'message': 'User settings already exists'}, status=status.HTTP_200_OK)
         serializer = ApplicationConfigurationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
 def application_configuration_detail(request, id, format=None):
     try:
         configuration = ApplicationConfiguration.objects.get(pk=id)
@@ -163,6 +184,11 @@ def application_configuration_detail(request, id, format=None):
         return Response(serializer.data)
     elif request.method == 'PUT':
         serializer = ApplicationConfigurationSerializer(configuration, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+    elif request.method == 'PATCH':
+        serializer = ApplicationConfigurationSerializer(configuration, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
