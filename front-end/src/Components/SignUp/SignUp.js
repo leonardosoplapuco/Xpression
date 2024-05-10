@@ -79,19 +79,17 @@ function SignUp() {
             }
         };
 
-//        axios.post('http://127.0.0.1:8000/users/', {
-//            username: userName,
-//            address: userAddress,
-//            password: userPassword,
-//          })
-//            .then((response) => {
-//              console.log(response.data)
-//              alert('POST REQUEST SENT TO API');
-//            })
-//            .catch((error) => {
-//              console.error(error);
-//              alert('POST REQUEST FAILED');
-//            });
+        axios.post('http://127.0.0.1:8000/users/', {
+            username: userName,
+            address: userAddress,
+            password: userPassword,
+          })
+            .then((response) => {
+              console.log(response.data)
+            })
+            .catch((error) => {
+              console.error(error);
+            });
     }
 
     return (
