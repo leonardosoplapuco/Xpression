@@ -1,17 +1,26 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import './ChatActive.css';
-import Xpression from '../../ChatImg/Xpression.png';
+import PhotoProfile from '../../../dist/photo-profile.png';
 
-function ChatActive() {
+function ChatActive({ activeContact }) {
     const [message, setMessage] = useState('');
     const [messagesList, setMessagesList] = useState([]);
+    const [isActive, setIsActive] = useState(false);
     const messagesEndRef = useRef(null);
 
-    const messageReceiver = 'leosoplapuco@movim.eu';
-
-    // Instancia de la conexion con WebSocket
     const socket = useSelector(state => state.socket.socket);
+
+    const messageReceiver = activeContact;
+
+    useEffect(() => {
+        const loadMessagesFromStorage = () => {
+            const contactMessages = JSON.parse(localStorage.getItem(activeContact)) || [];
+            setMessagesList(contactMessages);
+        };
+
+        loadMessagesFromStorage();
+    }, [activeContact]);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -21,31 +30,63 @@ function ChatActive() {
         scrollToBottom();
     }, [messagesList]);
 
-    function sendMessage(receiver, message) {
-        return new Promise((resolve, reject) => {
-            if (socket) {
-                socket.send(JSON.stringify({
-                    'type': 'send_message',
-                    'to': receiver,
-                    'message': message,
-                }));
-                socket.send(JSON.stringify({
-                    'type': 'get_presence',
-                    'user': messageReceiver,
-                }));
-                socket.onmessage = (event) => {
-                    const message = JSON.parse(event.data);
-                    console.log('Received message:', message);
+    useEffect(() => {
+        setIsActive(activeContact !== null);
+    }, [activeContact]);
 
-                    if (message.type === 'send_message') {
-                        resolve(true);
-                    }
-                };
-            } else {
-                reject(new Error('Socket not available'));
-            }
-        });
-    }
+    useEffect(() => {
+        if (socket) {
+            socket.onmessage = (event) => {
+                const incomingMessage = JSON.parse(event.data);
+                if (incomingMessage.type === 'receive_message' && incomingMessage.body) {
+                    const newMessage = {
+                        text: incomingMessage.body,
+                        sender: 'contact',
+                        time: new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
+                    };
+    
+                    // Agregar el nuevo mensaje al estado messagesList
+                    setMessagesList(prevMessages => [...prevMessages, newMessage]);
+    
+                    // Almacenar el nuevo mensaje en el localStorage
+                    const contactMessages = JSON.parse(localStorage.getItem(activeContact)) || [];
+                    contactMessages.push(newMessage);
+                    localStorage.setItem(activeContact, JSON.stringify(contactMessages));
+                }
+            };
+        }
+    }, [socket, activeContact]);
+
+    const sendMessage = (receiver, message) => {
+        if (!socket) {
+            console.error('Socket not available');
+            return;
+        }
+
+        socket.send(JSON.stringify({
+            'type': 'send_message',
+            'to': receiver,
+            'message': message,
+        }));
+
+        const newMessage = {
+            text: message,
+            sender: 'user',
+            time: new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
+        };
+
+        // Actualizar los mensajes solo si el contacto activo es igual al receptor del mensaje
+        if (activeContact === receiver) {
+            setMessagesList(prevMessages => [...prevMessages, newMessage]);
+
+            // Almacenar el nuevo mensaje en el localStorage
+            const contactMessages = JSON.parse(localStorage.getItem(activeContact)) || [];
+            contactMessages.push(newMessage);
+            localStorage.setItem(activeContact, JSON.stringify(contactMessages));
+        }
+
+        setMessage('');
+    };
 
     const handleMessageChange = (event) => {
         setMessage(event.target.value);
@@ -56,23 +97,7 @@ function ChatActive() {
             return;
         }
 
-        sendMessage(messageReceiver, message)
-            .then((result) => {
-                console.log('Message sent successfully:', result);
-                // Agrega el nuevo mensaje a la lista de mensajes
-                const newMessage = {
-                    text: message,
-                    sender: 'user', // Indica que el mensaje es del usuario
-                    time: new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) // Formato de hora personalizado
-                };
-                setMessagesList([...messagesList, newMessage]);
-
-                // Limpia el input después de enviar el mensaje
-                setMessage('');
-            })
-            .catch((error) => {
-                console.error('Error sending message:', error);
-            });
+        sendMessage(messageReceiver, message);
     };
 
     const handleKeyDown = (event) => {
@@ -81,61 +106,48 @@ function ChatActive() {
         }
     };
 
-    return(
-        <div className="ChatActiveContainer">
+    return (
+        <div className={`ChatActiveContainer ${isActive ? 'active' : ''}`}>
             <div className="ChatActive">
                 <div className="ChatActiveTop">
                     <div className="ContactActiveInfo">
-                        <div className="button-link ReturnContactList" onClick={ReturnRecentChats}>
+                        <div className="button-link ReturnContactList" onClick={toggleActive}>
                             <span className="material-symbols-outlined text">arrow_back</span>
                         </div>
-
-                        <img src={Xpression} alt=""></img>
-                        <span className="ContactActiveName">bryanyep</span>
+                        <img src={PhotoProfile} alt=""/>
+                        <span className="ContactActiveName">{activeContact}</span>
                     </div>
-
-                    {/* <div className="button-link ContactActiveMenu" title="Menu">
-                        <span className="material-symbols-outlined text">more_vert</span>
-                    </div> */}
                 </div>
-
                 <div className="messages">
                     {messagesList.map((msg, index) => (
-                        <div key={index} className={`UserMessage MessageContainer ${msg.sender === 'user' ? 'UserMessage' : 'ContactMessage'}`}>
-                            <div className="UserMessageText Message">
+                        <div key={index} className={`MessageContainer ${msg.sender === 'user' ? 'UserMessage' : 'ContactMessage'}`}>
+                            <div className={`Message ${msg.sender === 'user' ? 'UserMessageText' : 'ContactMessageText'}`}>
                                 <p className='text'>{msg.text}</p>
-                                <span className={`${msg.sender === 'user' ? 'UserMessageDate' : 'ContactMessageDate'} MessageDate`}>{msg.time}</span>
+                                <span className="MessageDate">{msg.time}</span>
                             </div>
                         </div>
                     ))}
-                    <div ref={messagesEndRef} /> {/* Esta referencia se utilizará para desplazar el contenedor de mensajes hacia abajo */}
+                    <div ref={messagesEndRef} />
                 </div>
-
                 <div className="ChatActiveInputArea">
-                    {/* <div className="button-link ContactActiveSendImage" title="Send">
-                        <span className="material-symbols-outlined button-link_text">image</span>
-                    </div> */}
-
-                    <input 
-                        className="ChatActiveInput" 
-                        placeholder="Send a message"
+                    <input
+                        className="ChatActiveInput"
+                        placeholder="Escriba un mensaje aquí"
                         value={message}
                         onChange={handleMessageChange}
-                        onKeyDown={handleKeyDown} // Agrega el evento onKeyDown
+                        onKeyDown={handleKeyDown}
                     />
-
-                    <div className="button-link ContactActiveSendMessage" title="Send" onClick={handleSendMessage}>
+                    <div className="button-link ContactActiveSendMessage" title="Enviar" onClick={handleSendMessage}>
                         <span className="material-symbols-outlined button-link_text">send</span>
                     </div>
                 </div>
             </div>
         </div>
     );
-}
 
-function ReturnRecentChats(){
-    const ChatActiveContainer = document.querySelector('.ChatActiveContainer');
-    ChatActiveContainer.classList.remove('active');
+    function toggleActive() {
+        setIsActive(!isActive);
+    }
 }
 
 export default ChatActive;

@@ -29,15 +29,11 @@
     width: 100%;
     height: 70px;
     background: var(--body);
-    border-bottom: 1px solid var(--light-gray-black-0);
+    border-bottom: 2px solid var(--light-gray-black-0);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
-}
-
-.dark-mode .ChatActiveTop{
-    border-bottom: 1px solid var(--black-0);
 }
 
 /**/
@@ -104,11 +100,13 @@
 }
 
 .messages::-webkit-scrollbar{
-    width: 3px;
+    width: 8px;
+    background: var(--body);
 }
 
 .messages::-webkit-scrollbar-thumb{
-    background: var(--black-2);
+    background: var(--light-gray-black-0);
+    border-radius: 10px;
 }
 
 .MessageContainer{
@@ -155,9 +153,20 @@
     clip-path: polygon(100% 0, 0 0, 0 100%);
 }
 
+.Message p{
+    word-break: break-all;
+}
+
 .MessageDate{
-    font-size: 12px;
+    font-size: 10px;
     color: var(--text);
+}
+
+.UserMessageText .MessageDate{
+    margin-right: auto;
+}
+
+.ContactMessageText .MessageDate{
     margin-left: auto;
 }
 
@@ -169,26 +178,22 @@
     bottom: 0;
     width: 100%;
     height: 50px;
-    padding: 0 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-top: 1px solid var(--light-gray-black-0);
+    border-top: 2px solid var(--light-gray-black-0);
     background: var(--body);
     z-index: 50;
 }
 
 .ChatActiveInput{
     height: 50px;
-    width: calc(100% - (50px * 2));
-    border: 1px solid var(--gray);
+    width: calc(100% - 50px);
+    border: 0;
     outline: 0;
-    background: var(--white-black-3);
+    background: var(--light-gray-black-0);
+    padding: 0 20px;
     color: var(--text);
-}
-
-.ChatActiveInput::placeholder{
-    color: var(--gray);
 }
 
 .ChatActiveInputArea .button-link{

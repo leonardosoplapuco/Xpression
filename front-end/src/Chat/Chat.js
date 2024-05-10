@@ -12,36 +12,35 @@ import CreateGroup from './Components/CreateGroup/CreateGroup';
 function Chat() {
     const socket = useSelector(state => state.socket.socket);
     const [roster, setRoster] = useState([]);
+    const [activeContact, setActiveContact] = useState(null);
 
     useEffect(() => {
         if (socket) {
             socket.send(JSON.stringify({'type': 'get_roster'}));
             socket.onmessage = (event) => {
                 const message = JSON.parse(event.data);
-                // Aqui va tu codigo para manipular los mensajes
-                // que ingresan de WebSockets
                 console.log('Received message:', message);
 
                 if (message.type === 'roster_update') {
                     setRoster(message.contacts);
-                    console.log(message.contacts);
-                    console.log(roster);
                 }
             };
         }
     }, [socket]);
 
-    console.log(roster);
+    const handleContactClick = (contact) => {
+        setActiveContact(contact);
+    };
 
     return (
         <div className="Chat">
-            <><ChatBarLeft/></>
-            <><ChatInactive/></>
-            <><ChatActive/></>
-            <><Settings/></>
-            <><LayerBlur/></>
-            <><AddContact/></>
-            <><CreateGroup/></>
+            <ChatBarLeft roster={roster} onContactClick={handleContactClick} activeContact={activeContact}/>
+            <ChatInactive/>
+            <ChatActive activeContact={activeContact}/>
+            <Settings/>
+            <LayerBlur/>
+            <AddContact/>
+            <CreateGroup/>
         </div>
     );
 }

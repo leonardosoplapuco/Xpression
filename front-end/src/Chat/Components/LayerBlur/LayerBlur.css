@@ -4,17 +4,13 @@
     top: 0;
     width: 100%;
     height: 100vh;
-    background: #FFFFFF50;
+    background: var(--body);
     backdrop-filter: blur(5px);
     z-index: 1;
     opacity: 0;
     pointer-events: none;
     user-select: none;
     transition: var(--transition-250ms);
-}
-
-.dark-mode .LayerBlur{
-    background: #22222250;
 }
 
 .LayerBlur.active{

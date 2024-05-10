@@ -6,7 +6,7 @@
     max-width: 400px;
     height: 100vh;
     background: var(--body);
-    border-left: 1px solid var(--gray);
+    border-left: 2px solid var(--light-gray-black-0);
     transition: var(--transition-250ms);
     display: flex;
     flex-direction: column;
@@ -24,11 +24,23 @@
     justify-content: center;
     padding: 10px;
     gap: 10px;
+    border-bottom: 2px solid var(--light-gray-black-0);
 }
 
 .SettingsMenu li,
 .SettingsClose li{
     width: 100%;
+}
+
+.MyProfileButton{
+    width: 100%;
+    display: flex;
+}
+
+.MyProfileButton span{
+    color: var(--text);
+    font-size: 24px;
+    margin: auto;
 }
 
 .SettingsMenuButton,
@@ -66,6 +78,7 @@
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 10px;
+    display: none;
 }
 
 .ProfilePhoto{
@@ -122,6 +135,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding: 20px 0;
 }
 
 .MyProfileSettingsTarget{
@@ -158,25 +172,27 @@
     width: calc(100% - 50px);
     height: 100%;
     background: var(--body);
-    border: 1px solid var(--gray);
+    border: 2px solid var(--black-2-white);
     transition: var(--transition-250ms);
     color: var(--text);
     outline: 0;
     padding: 0 20px;
+    border-radius: 5px;
 }
 
 .MyProfileSettingsTarget input::placeholder{
-    color: var(--gray);
+    color: var(--text);
 }
 
 select{
-    width: 100%;
+    width: calc(100% - 50px);
     height: 100%;
     padding: 0 20px;
     background: var(--body);
     transition: var(--transition-250ms);
     color: var(--text);
-    border: 1px solid var(--gray);
+    border: 2px solid var(--black-2-white);
+    border-radius: 5px;
     outline: 0;
 }
 
@@ -184,13 +200,14 @@ select option{
     width: 100%;
     padding: 10px !important;
     padding: 0 20px;
-    background: var(--message);
+    background: var(--light-gray-black-0);
     color: var(--text);
+    cursor: pointer;
 }
 
 .SignOutButton{
     width: 100%;
-    background: var(--message);
+    background: var(--light-gray-black-0);
 }
 
 .SettingsClose{
@@ -198,11 +215,11 @@ select option{
 }
 
 .SafeButton{
-    background: var(--message);
+    background: var(--light-gray-black-0);
 }
 
 .CloseButton{
-    border: 1px solid var(--gray);
+    border: 2px solid var(--black-2-white);
     background: var(--body);
 }
 

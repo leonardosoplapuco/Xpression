@@ -30,14 +30,9 @@ function Settings() {
         <div className="Settings">
             <ul className="SettingsMenu">
                 <li>
-                    <button className="button-link SettingsMenuButton MyProfileButton active">
-                        <span className="button-link_text text">My profile</span>
-                    </button>
-                </li>
-                <li>
-                    <button className="button-link SettingsMenuButton MoreInfoButton">
-                        <span className="button-link_text text">More info</span>
-                    </button>
+                    <div className="MyProfileButton">
+                        <span className="button-link_text text title">Tu perfil</span>
+                    </div>
                 </li>
             </ul>
 
@@ -59,22 +54,22 @@ function Settings() {
                 <form className="MyProfileSettings" id="MyProfileSettings">
                     <div className="MyProfileSettingsTarget MyProfileSettingsTarget-1">
                         <span className="material-symbols-outlined MyProfileSettingsTargetIcon">person</span>
-                        <span className="MyProfileSettingsSpan">Username</span>
+                        <span className="MyProfileSettingsSpan">Nombre de usuario</span>
                         <input type="text" id="miInput" placeholder={leon}/>
                     </div>
                     <div className="MyProfileSettingsTarget MyProfileSettingsTarget-2">
                         <span className="material-symbols-outlined MyProfileSettingsTargetIcon">person</span>
-                        <span className="MyProfileSettingsSpan">Full name</span>
+                        <span className="MyProfileSettingsSpan">Nombre completo</span>
                         <input type="text" id="miInput" placeholder="Leonardo Soplapuco"/>
                     </div>
                     <div className="MyProfileSettingsTarget MyProfileSettingsTarget-3">
-                        <span className="material-symbols-outlined MyProfileSettingsTargetIcon">mail</span>
-                        <span className="MyProfileSettingsSpan">Email</span>
+                        <span className="material-symbols-outlined MyProfileSettingsTargetIcon">alternate_email</span>
+                        <span className="MyProfileSettingsSpan">Correo XMPP</span>
                         <input type="text" id="miInput" placeholder="leosoplapuco@bryanyep.com"/>
                     </div>
                     <div className="MyProfileSettingsTarget MyProfileSettingsTarget-4">
                         <span className="material-symbols-outlined  MyProfileSettingsTargetIcon">contrast</span>
-                        <span className="MyProfileSettingsSpan">Theme</span>
+                        <span className="MyProfileSettingsSpan">Tema</span>
                         <select onChange={(event) => {
                             console.log('Selected value:', event.target.value); // Log selected value
                             if (event.target.value === 'Light') {
@@ -83,20 +78,12 @@ function Settings() {
                                 ActiveDarkMode();
                             }
                         }}>
-                            <option value="Light">Light</option>
-                            <option value="Dark">Dark</option>
-                        </select>
-                    </div>
-                    <div className="MyProfileSettingsTarget MyProfileSettingsTarget-5">
-                        <span className="material-symbols-outlined  MyProfileSettingsTargetIcon">translate</span>
-                        <span className="MyProfileSettingsSpan">Language</span>
-                        <select>
-                            <option>English</option>
-                            <option>Spanish</option>
+                            <option value="Light">Claro</option>
+                            <option value="Dark">Oscuro</option>
                         </select>
                     </div>
                     <button type="submit" className="button-link SettingsCloseButton SafeButton" title="Save">
-                        <span className="button-link_text text">Save changes</span>
+                        <span className="button-link_text text">Guardar cambios</span>
                     </button>
                 </form>
             </div>
@@ -108,12 +95,12 @@ function Settings() {
                         title="Sign out"
                         onClick={signOut}
                     >
-                        <div className="button-link_text text">Sign out</div>
+                        <div className="button-link_text text">Cerrar sesión</div>
                     </button>
                 </li>
                 <li>
                     <button className="button-link SettingsCloseButton CloseButton" onClick={() => DesactiveSettings() | DesactiveLayerBlur()} title="Close settings">
-                        <span className="button-link_text text">Close</span>
+                        <span className="button-link_text text">Cerrar</span>
                     </button>
                 </li>
             </ul>

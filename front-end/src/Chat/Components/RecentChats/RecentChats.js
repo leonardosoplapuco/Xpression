@@ -1,27 +1,20 @@
 import './RecentChats.css';
-import Xpression from '../../ChatImg/Xpression.png'
+import PhotoProfile from '../../../dist/photo-profile.png';
 
-function RecentChats() {
+function RecentChats({ roster, onContactClick, activeContact }) {
     return(
         <div className="RecentChats">
-            <div className="RecentChat" onClick={ChatActive}>
-                <div className="RecentChat_icon">
-                    <img src={Xpression} alt=""></img>
+            {roster && roster.slice(0, -1).map((contact) => (
+                <div key={contact} className="RecentChat" onClick={() => onContactClick(contact)}>
+                    <div className="RecentChat_Resume">
+                        <img src={PhotoProfile} alt="Xpression"/>
+                        <div className="RecentChat_Username">{contact}</div>
+                    </div>
+                    {activeContact === contact && <div className="active"></div>} {/* Agregamos la clase active aquí */}
                 </div>
-                <span className="RecentChat_Time text">11:14</span>
-                <div className="RecentChat_Resume">
-                    <div className="RecentChat_Username">bryanyep</div>
-                </div>
-            </div>
+            ))}
         </div>
     );
-}
-
-function ChatActive(){
-    const ChatActiveContainer = document.querySelector('.ChatActiveContainer');
-    const ChatInactive = document.querySelector('.ChatInactive');
-    ChatActiveContainer.classList.add('active');
-    ChatInactive.classList.add('desactive');
 }
 
 export default RecentChats;
