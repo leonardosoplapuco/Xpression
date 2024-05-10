@@ -34,6 +34,7 @@ class XMPPClient:
         contact_presence = ''
         def presence_handler(conn, presence):
             contact_presence = presence.getType()
+            print(f'{contact_jid}: {contact_presence}')
 
         return contact_presence
 
@@ -111,11 +112,16 @@ class LoginConsumer(WebsocketConsumer):
         elif 'type' in text_data_json and text_data_json['type'] == 'send_message':
             receiver = text_data_json['to']
             message = text_data_json['message']
+            utc_now = datetime.datetime.utcnow()
+            local_time_difference = datetime.timedelta(hours=-5)
+            local_time_now = utc_now + local_time_difference
+            current_time = local_time_now.strftime("%d-%m-%Y %H:%M")
             self.send_message(receiver, message)
             self.send(json.dumps({
                 'type': 'send_message', 
-                'status': f'Message sent successfully to {receiver}',
-                'message': message
+                'to': f'{receiver}',
+                'body': message,
+                'time': current_time
             }));
 
         if 'type' in text_data_json and text_data_json['type'] == 'logout_request':
@@ -155,6 +161,7 @@ class LoginConsumer(WebsocketConsumer):
         local_time_now = utc_now + local_time_difference
         current_time = local_time_now.strftime("%d-%m-%Y %H:%M")
         new_dict = {
+            'type': 'receive_message',
             'from': xml_to_dict['message']['@from'],
             'body': xml_to_dict['message']['body'],
             'time': current_time
