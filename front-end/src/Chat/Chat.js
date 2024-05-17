@@ -23,6 +23,20 @@ function Chat() {
 
                 if (message.type === 'roster_update') {
                     setRoster(message.contacts);
+                } else if (message.type === 'receive_message' && message.body) {
+                    const sender = message.from.split('/')[0];
+
+                    const newMessage = {
+                        text: message.body,
+                        sender: sender,
+                        time: new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
+                    };
+                    console.log(newMessage);
+    
+                    // Almacenar el nuevo mensaje en el localStorage
+                    const contactMessages = JSON.parse(localStorage.getItem(sender)) || [];
+                    contactMessages.push(newMessage);
+                    localStorage.setItem(sender, JSON.stringify(contactMessages));
                 }
             };
         }

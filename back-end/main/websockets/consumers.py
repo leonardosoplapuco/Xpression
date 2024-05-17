@@ -64,9 +64,9 @@ class XMPPClient:
         except Exception as exception:
             logging.error(f"Failer to register message handler: {exception}")
 
-#    def disconnect(self):
-#        if self.client:
-#            self.client.disconnect()
+    def logout(self):
+        if self.client:
+            self.client.disconnect()
 
 class LoginConsumer(WebsocketConsumer):
 
@@ -80,7 +80,13 @@ class LoginConsumer(WebsocketConsumer):
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
         print(text_data_json)
-        if 'type' in text_data_json and text_data_json['type'] == 'login_request':
+        if 'type' not in text_data_json:
+            self.send(json.dumps({
+                'success': False,
+                'message': 'Bad request'
+            }))
+            
+        if text_data_json['type'] == 'login_request':
             username = text_data_json['username']
             password = text_data_json['password']
 
@@ -104,16 +110,16 @@ class LoginConsumer(WebsocketConsumer):
                 self.xmpp_client.register_message_handler(self.message_handler)
                 self.xmpp_client.start_listener()
             
-        elif 'type' in text_data_json and text_data_json['type'] == 'get_roster':
+        elif text_data_json['type'] == 'get_roster':
             print(text_data_json)
             self.send_roster()
 
-        elif 'type' in text_data_json and text_data_json['type'] == 'get_presence':
+        elif text_data_json['type'] == 'get_presence':
             print(text_data_json)
             contact_jid = xmpp.protocol.JID(text_data_json['user'])
             self.get_presence(contact_jid)
 
-        elif 'type' in text_data_json and text_data_json['type'] == 'send_message':
+        elif text_data_json['type'] == 'send_message':
             receiver = text_data_json['to']
             message = text_data_json['message']
             utc_now = datetime.datetime.utcnow()
@@ -128,7 +134,7 @@ class LoginConsumer(WebsocketConsumer):
                 'time': current_time
             }));
 
-        if 'type' in text_data_json and text_data_json['type'] == 'logout_request':
+        elif text_data_json['type'] == 'logout_request':
             print(text_data_json)
             close_code = 1000
             self.disconnect(close_code)
@@ -149,6 +155,7 @@ class LoginConsumer(WebsocketConsumer):
     def get_presence(self, contact_jid):
         if hasattr(self, 'xmpp_client'):
             presence = self.xmpp_client.get_presence(contact_jid)
+            print('Type of presence is:', type(presence))
             print(f'{contact_jid}: {presence}')
 
     def send_message(self, receiver, message):
@@ -177,7 +184,7 @@ class LoginConsumer(WebsocketConsumer):
 
     def disconnect(self, close_code):
         if hasattr(self, 'xmpp_client'):
-            self.xmpp_client.disconnect()
+            #self.xmpp_client.logout()
             self.send(text_data=json.dumps({
                 'type': 'xmpp_logout',
                 'message': 'You logged out of the XMPP server',

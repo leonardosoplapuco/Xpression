@@ -39,19 +39,26 @@ function ChatActive({ activeContact }) {
             socket.onmessage = (event) => {
                 const incomingMessage = JSON.parse(event.data);
                 if (incomingMessage.type === 'receive_message' && incomingMessage.body) {
+                    const sender = incomingMessage.from.split('/')[0];
+
                     const newMessage = {
                         text: incomingMessage.body,
-                        sender: 'contact',
+                        sender: sender,
                         time: new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
                     };
-    
-                    // Agregar el nuevo mensaje al estado messagesList
-                    setMessagesList(prevMessages => [...prevMessages, newMessage]);
-    
+
+                    console.log('ChatActive.js', newMessage);
+
+                    if (sender === activeContact) {
+                        // Agregar el nuevo mensaje al estado messagesList
+                        setMessagesList(prevMessages => [...prevMessages, newMessage]);
+                        scrollToBottom();
+                    }
                     // Almacenar el nuevo mensaje en el localStorage
-                    const contactMessages = JSON.parse(localStorage.getItem(activeContact)) || [];
+                    const contactMessages = JSON.parse(localStorage.getItem(sender)) || [];
                     contactMessages.push(newMessage);
-                    localStorage.setItem(activeContact, JSON.stringify(contactMessages));
+                    localStorage.setItem(sender, JSON.stringify(contactMessages));
+    
                 }
             };
         }
@@ -120,8 +127,16 @@ function ChatActive({ activeContact }) {
                 </div>
                 <div className="messages">
                     {messagesList.map((msg, index) => (
-                        <div key={index} className={`MessageContainer ${msg.sender === 'user' ? 'UserMessage' : 'ContactMessage'}`}>
-                            <div className={`Message ${msg.sender === 'user' ? 'UserMessageText' : 'ContactMessageText'}`}>
+                        <div key={index} className={`MessageContainer ${
+                            msg.sender === 'user' ? 'UserMessage' :
+                            msg.sender === activeContact ? 'ContactMessage' :
+                            ''
+                        }`}>
+                            <div className={`Message ${
+                                msg.sender === 'user' ? 'UserMessageText' :
+                                msg.sender === activeContact ? 'ContactMessageText' :
+                                ''
+                            }`}>
                                 <p className='text'>{msg.text}</p>
                                 <span className="MessageDate">{msg.time}</span>
                             </div>

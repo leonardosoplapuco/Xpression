@@ -25,9 +25,17 @@ function Login() {
         setUserPassword(event.target.value);
     }
 
+    function  generateUniqueToken() {
+        const randomString = Math.random().toString(36).substr(2, 10);
+        const timeStamp = new Date().getTime();
+        return randomString + timeStamp;
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const url = 'ws://127.0.0.1:8000/ws/socket-server/';
+        const token = generateUniqueToken();
+        localStorage.setItem('websocketToken', token);
+        const url = `ws://127.0.0.1:8000/ws/socket-server/?token=${token}`;
         const loginSocket = new WebSocket(url);
 
         loginSocket.onopen = () => {
