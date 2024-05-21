@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './Settings.css';
 import { DesactiveLayerBlur } from '../LayerBlur/LayerBlur'
 import leo from '../../ChatImg/leo.jpg';
 
 function Settings() {
+
+    const navigate = useNavigate();
 
     const [userName, setUserName] = useState('');
     const [fullName, setFullName] = useState('');
@@ -55,6 +58,8 @@ function Settings() {
                 if (message.type === 'xmpp_logout') {
                     // Aqui va la lagica para salir del chat
                     // y redirigir a la pantalla principal
+                    alert('Cerrando sesión\n¡Gracias por usar Xpression!');
+                    navigate('/');
                 }
             };
         }
