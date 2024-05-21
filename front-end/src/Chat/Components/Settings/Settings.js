@@ -1,9 +1,43 @@
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import './Settings.css';
 import { DesactiveLayerBlur } from '../LayerBlur/LayerBlur'
 import leo from '../../ChatImg/leo.jpg';
 
 function Settings() {
+
+    const [userName, setUserName] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [address, setAddress] = useState('');
+    const [theme, setTheme] = useState(false);
+
+    function handleUserName(event) {
+        setUserName(event.target.value);
+    }
+
+    function handleFullName(event) {
+        setFullName(event.target.value);
+    }
+
+    function handleAddress(event) {
+        setAddress(event.target.value);
+    }
+
+    const handleSubmit = () => {
+        event.preventDefault();
+
+        localStorage.setItem('username', userName);
+        localStorage.setItem('fullname', fullName);
+        localStorage.setItem('address', address);
+        localStorage.setItem('dark-mode', theme);
+    };
+
+    useEffect(() => {
+        setUserName(localStorage.getItem('username') || '');
+        setFullName(localStorage.getItem('fullname') || '');
+        setAddress(localStorage.getItem('address') || '');
+        setTheme(localStorage.getItem('dark-mode') || false);
+    }, []);
 
     // Instancia de la conexion con WebSocket
     const socket = useSelector(state => state.socket.socket);
@@ -51,21 +85,43 @@ function Settings() {
                     </div>
                 </div>
 
-                <form className="MyProfileSettings" id="MyProfileSettings">
+                <form
+                    className="MyProfileSettings"
+                    id="MyProfileSettings"
+                    onSubmit={handleSubmit}
+                >
                     <div className="MyProfileSettingsTarget MyProfileSettingsTarget-1">
                         <span className="material-symbols-outlined MyProfileSettingsTargetIcon">person</span>
                         <span className="MyProfileSettingsSpan">Nombre de usuario</span>
-                        <input type="text" id="miInput" placeholder={leon}/>
+                        <input
+                            type="text"
+                            id="miInput"
+                            placeholder={leon}
+                            value={userName}
+                            onChange={handleUserName}
+                        />
                     </div>
                     <div className="MyProfileSettingsTarget MyProfileSettingsTarget-2">
                         <span className="material-symbols-outlined MyProfileSettingsTargetIcon">person</span>
                         <span className="MyProfileSettingsSpan">Nombre completo</span>
-                        <input type="text" id="miInput" placeholder="Leonardo Soplapuco"/>
+                        <input
+                          type="text"
+                          id="miInput"
+                          placeholder="Leonardo Soplapuco"
+                          value={fullName}
+                          onChange={handleFullName}
+                        />
                     </div>
                     <div className="MyProfileSettingsTarget MyProfileSettingsTarget-3">
                         <span className="material-symbols-outlined MyProfileSettingsTargetIcon">alternate_email</span>
                         <span className="MyProfileSettingsSpan">Correo XMPP</span>
-                        <input type="text" id="miInput" placeholder="leosoplapuco@bryanyep.com"/>
+                        <input
+                            type="text"
+                            id="miInput"
+                            placeholder="leosoplapuco@bryanyep.com"
+                            value={address}
+                            onChange={handleAddress}
+                        />
                     </div>
                     <div className="MyProfileSettingsTarget MyProfileSettingsTarget-4">
                         <span className="material-symbols-outlined  MyProfileSettingsTargetIcon">contrast</span>
@@ -74,8 +130,10 @@ function Settings() {
                             console.log('Selected value:', event.target.value); // Log selected value
                             if (event.target.value === 'Light') {
                                 DesactiveDarkMode();
+                                setTheme(false);
                             } else if (event.target.value === 'Dark') {
                                 ActiveDarkMode();
+                                setTheme(true);
                             }
                         }}>
                             <option value="Light">Claro</option>
