@@ -8,12 +8,14 @@ import Settings from './Components/Settings/Settings';
 import LayerBlur from './Components/LayerBlur/LayerBlur';
 import AddContact from './Components/AddContact/AddContact';
 import CreateGroup from './Components/CreateGroup/CreateGroup';
+import notificationSound from '../dist/notification-sound.mp3';
 
 function Chat() {
     const socket = useSelector(state => state.socket.socket);
     const [roster, setRoster] = useState([]);
     const [activeContact, setActiveContact] = useState(null);
     const [lastMessage, setLastMessage] = useState({});
+    const audioRef = useRef(null);
 
     const rosterRef = useRef(roster);
 
@@ -63,6 +65,12 @@ function Chat() {
         }
     }, [socket]);
 
+    useEffect(() => {
+        if (audioRef.current && lastMessage.sender && lastMessage.sender !== 'user') {
+            audioRef.current.play();
+        }
+    }, [lastMessage]);
+
     console.log('roster:',roster);
 
     const sendMessage = (receiver, message) => {
@@ -100,13 +108,10 @@ function Chat() {
 
     return (
         <div className="Chat">
+            <audio ref={audioRef} src={notificationSound} />
             <ChatBarLeft roster={roster} onContactClick={handleContactClick} activeContact={activeContact}/>
             <ChatInactive/>
-            <ChatActive
-                activeContact={activeContact}
-                sendMessage={sendMessage}
-                lastMessage={lastMessage}
-            />
+            <ChatActive activeContact={activeContact} sendMessage={sendMessage} lastMessage={lastMessage}/>
             <Settings/>
             <LayerBlur/>
             <AddContact/>
