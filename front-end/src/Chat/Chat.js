@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import './Chat.css';
 import ChatInactive from './Components/ChatInactive/ChatInactive';
@@ -13,6 +13,13 @@ function Chat() {
     const socket = useSelector(state => state.socket.socket);
     const [roster, setRoster] = useState([]);
     const [activeContact, setActiveContact] = useState(null);
+    const [lastMessage, setLastMessage] = useState({});
+
+    const rosterRef = useRef(roster);
+
+    useEffect(() => {
+        rosterRef.current = roster;
+    }, [roster]);
 
     useEffect(() => {
         if (socket) {
@@ -22,7 +29,9 @@ function Chat() {
                 console.log('Received message:', message);
 
                 if (message.type === 'roster_update') {
-                    setRoster(message.contacts);
+                    const contacts = message.contacts;
+                    contacts.pop();
+                    setRoster(contacts);
                 } else if (message.type === 'receive_message' && message.body) {
                     const sender = message.from.split('/')[0];
 
@@ -37,10 +46,53 @@ function Chat() {
                     const contactMessages = JSON.parse(localStorage.getItem(sender)) || [];
                     contactMessages.push(newMessage);
                     localStorage.setItem(sender, JSON.stringify(contactMessages));
+                    setLastMessage(newMessage);
+
+                    console.log('sender:', sender);
+
+                    const contacts = [...rosterRef.current];
+                    console.log('contacts', contacts);
+                    if (contacts.includes(sender)) {
+                        console.log('contacts:', contacts);
+                        contacts.splice(contacts.indexOf(sender), 1);
+                        contacts.unshift(sender)
+                        setRoster(contacts);
+                    }
                 }
             };
         }
     }, [socket]);
+
+    console.log('roster:',roster);
+
+    const sendMessage = (receiver, message) => {
+        if (!socket) {
+            console.error('Socket not available');
+            return;
+        }
+
+        socket.send(JSON.stringify({
+            'type': 'send_message',
+            'to': receiver,
+            'message': message,
+        }));
+
+        const newMessage = {
+            text: message,
+            sender: 'user',
+            time: new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
+        };
+
+        setLastMessage(newMessage);
+
+        const contacts = [...rosterRef.current];
+        console.log('contacts', contacts);
+        contacts.splice(contacts.indexOf(receiver), 1);
+        contacts.unshift(receiver)
+        setRoster(contacts);
+
+        return newMessage;
+    };
 
     const handleContactClick = (contact) => {
         setActiveContact(contact);
@@ -50,7 +102,11 @@ function Chat() {
         <div className="Chat">
             <ChatBarLeft roster={roster} onContactClick={handleContactClick} activeContact={activeContact}/>
             <ChatInactive/>
-            <ChatActive activeContact={activeContact}/>
+            <ChatActive
+                activeContact={activeContact}
+                sendMessage={sendMessage}
+                lastMessage={lastMessage}
+            />
             <Settings/>
             <LayerBlur/>
             <AddContact/>

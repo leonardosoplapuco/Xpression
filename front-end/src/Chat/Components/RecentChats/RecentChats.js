@@ -4,7 +4,7 @@ import PhotoProfile from '../../../dist/photo-profile.png';
 function RecentChats({ roster, onContactClick, activeContact }) {
     return(
         <div className="RecentChats">
-            {roster && roster.slice(0, -1).map((contact) => (
+            {roster.map((contact) => (
                 <div key={contact} className="RecentChat" onClick={() => onContactClick(contact)}>
                     <div className="RecentChat_Resume">
                         <img src={PhotoProfile} alt="Xpression"/>

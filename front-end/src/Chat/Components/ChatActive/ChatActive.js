@@ -1,15 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import './ChatActive.css';
 import PhotoProfile from '../../../dist/photo-profile.png';
 
-function ChatActive({ activeContact }) {
+function ChatActive({ activeContact, sendMessage, lastMessage }) {
     const [message, setMessage] = useState('');
     const [messagesList, setMessagesList] = useState([]);
     const [isActive, setIsActive] = useState(false);
     const messagesEndRef = useRef(null);
-
-    const socket = useSelector(state => state.socket.socket);
 
     const messageReceiver = activeContact;
 
@@ -20,7 +17,7 @@ function ChatActive({ activeContact }) {
         };
 
         loadMessagesFromStorage();
-    }, [activeContact]);
+    }, [activeContact, lastMessage]);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -34,67 +31,6 @@ function ChatActive({ activeContact }) {
         setIsActive(activeContact !== null);
     }, [activeContact]);
 
-    useEffect(() => {
-        if (socket) {
-            socket.onmessage = (event) => {
-                const incomingMessage = JSON.parse(event.data);
-                if (incomingMessage.type === 'receive_message' && incomingMessage.body) {
-                    const sender = incomingMessage.from.split('/')[0];
-
-                    const newMessage = {
-                        text: incomingMessage.body,
-                        sender: sender,
-                        time: new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
-                    };
-
-                    console.log('ChatActive.js', newMessage);
-
-                    if (sender === activeContact) {
-                        // Agregar el nuevo mensaje al estado messagesList
-                        setMessagesList(prevMessages => [...prevMessages, newMessage]);
-                        scrollToBottom();
-                    }
-                    // Almacenar el nuevo mensaje en el localStorage
-                    const contactMessages = JSON.parse(localStorage.getItem(sender)) || [];
-                    contactMessages.push(newMessage);
-                    localStorage.setItem(sender, JSON.stringify(contactMessages));
-    
-                }
-            };
-        }
-    }, [socket, activeContact]);
-
-    const sendMessage = (receiver, message) => {
-        if (!socket) {
-            console.error('Socket not available');
-            return;
-        }
-
-        socket.send(JSON.stringify({
-            'type': 'send_message',
-            'to': receiver,
-            'message': message,
-        }));
-
-        const newMessage = {
-            text: message,
-            sender: 'user',
-            time: new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
-        };
-
-        // Actualizar los mensajes solo si el contacto activo es igual al receptor del mensaje
-        if (activeContact === receiver) {
-            setMessagesList(prevMessages => [...prevMessages, newMessage]);
-
-            // Almacenar el nuevo mensaje en el localStorage
-            const contactMessages = JSON.parse(localStorage.getItem(activeContact)) || [];
-            contactMessages.push(newMessage);
-            localStorage.setItem(activeContact, JSON.stringify(contactMessages));
-        }
-
-        setMessage('');
-    };
-
     const handleMessageChange = (event) => {
         setMessage(event.target.value);
     };
@@ -104,7 +40,18 @@ function ChatActive({ activeContact }) {
             return;
         }
 
-        sendMessage(messageReceiver, message);
+        const newMessage = sendMessage(messageReceiver, message);
+
+        if (activeContact === messageReceiver) {
+            setMessagesList(prevMessages => [...prevMessages, newMessage]);
+
+            // Almacenar el nuevo mensaje en el localStorage
+            const contactMessages = JSON.parse(localStorage.getItem(activeContact)) || [];
+            contactMessages.push(newMessage);
+            localStorage.setItem(activeContact, JSON.stringify(contactMessages));
+        }
+
+        setMessage('');
     };
 
     const handleKeyDown = (event) => {
